@@ -1,0 +1,5 @@
+# Ignoring all build files
+build/*
+build/objectFiles/*
+
+.DS_Store
