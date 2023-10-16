@@ -48,7 +48,13 @@ FILES=	$(BUILD)/Main.o \
 		$(BUILD)/Connection.o \
 		$(BUILD)/UI.o \
 		$(BUILD)/UIButton.o \
-		$(BUILD)/MouseState.o
+		$(BUILD)/MouseState.o \
+		$(BUILD)/AndGate.o \
+		$(BUILD)/Button.o \
+		$(BUILD)/Lamp.o \
+		$(BUILD)/NotGate.o \
+		$(BUILD)/OrGate.o \
+		
 
 all: $(PROGRAM_FILE)
 

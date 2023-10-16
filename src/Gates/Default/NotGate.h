@@ -3,9 +3,9 @@
 #include "Gates/Gate.h"
 #include "MouseState.h"
 
-class AndGate: public Gate
+class NotGate: public Gate
 {
 public:
-    AndGate(int xPos, int yPos);
+    NotGate(int xPos, int yPos);
     void Logic(MouseState ms) override;
 };

@@ -3,7 +3,13 @@
 #include <SDL2/SDL.h>
 #include <vector>
 
-#include "Gate.h"
+#include "Gates/Gate.h"
+#include "Gates/Default/AndGate.h"
+#include "Gates/Default/Button.h"
+#include "Gates/Default/Lamp.h"
+#include "Gates/Default/NotGate.h"
+#include "Gates/Default/OrGate.h"
+
 #include "Connection.h"
 #include "MouseState.h"
 
