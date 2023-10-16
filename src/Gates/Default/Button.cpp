@@ -1,5 +1,7 @@
 #include "Button.h"
 
+#include "Debug.h"
+
 Button::Button(int xPos, int yPos): 
     Gate(xPos, yPos, 0, 1) 
 {
@@ -18,6 +20,7 @@ void Button::Logic()
 
     if (m_hoverBtn && MS::lBtnDown && !m_click)
     {
+        // Action when button is clicked
         m_outputs[0]->SetState(!m_outputs[0]->GetState());
         m_click = true;
     }

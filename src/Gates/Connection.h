@@ -9,20 +9,27 @@
 class Connection
 {
 public:
-    Connection(Pin* pin1);
+    Connection(Pin* pin);
+    ~Connection();
     void Update();
     void Draw(SDL_Renderer* renderer);
 
-    void SetPin1(Pin* pin);
-    Pin* GetPin1();
-    void SetPin2(Pin* pin);
-    Pin* GetPin2();
+    void SetFirstPin(Pin* pin);
+    void SetSecondPin(Pin* pin);
+
+    Pin* GetFirstPin();
+
+    void SetInPin(Pin* pin);
+    Pin* GetInPin();
+    void SetOutPin(Pin* pin);
+    Pin* GetOutPin();
 
     bool IsConnected();
 
 private:
     bool m_state;
+    bool m_firstIn;
     Uint32 m_color;
-    Pin* m_pin1;
-    Pin* m_pin2;
+    Pin* m_inPin;
+    Pin* m_outPin;
 };

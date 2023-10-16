@@ -2,61 +2,102 @@
 
 #include "Debug.h"
 
-Connection::Connection(Pin* pin1)
+Connection::Connection(Pin* pin)
 {
     m_state = false;
-    SetPin1(pin1);
-    m_pin2 = nullptr;
+    m_inPin = nullptr;
+    m_outPin = nullptr;
+    SetFirstPin(pin);
 }
 
-Pin* Connection::GetPin1()
+Connection::~Connection()
 {
-    return m_pin1;
+    if (m_inPin != nullptr)
+        m_inPin->SetConnected(false);
+    
+    if (m_outPin != nullptr)
+        m_outPin->SetConnected(false);
 }
 
-void Connection::SetPin1(Pin* pin)
+Pin* Connection::GetFirstPin()
 {
-    m_pin1 = pin;
-    m_pin1->SetConnected(true);
+    if (m_firstIn)
+        return m_inPin;
+    return m_outPin;
 }
 
-Pin* Connection::GetPin2()
+void Connection::SetFirstPin(Pin* pin)
 {
-    return m_pin2;
+    if (pin->IsInput())
+    {
+        SetInPin(pin);
+        m_firstIn = true;
+    }
+    else
+    {
+        SetOutPin(pin);
+        m_firstIn = false;
+    }
 }
 
-void Connection::SetPin2(Pin* pin)
+void Connection::SetSecondPin(Pin* pin)
 {
-    m_pin2 = pin;
-    m_pin2->SetConnected(true);
+    if (pin->IsInput() && m_inPin == nullptr)
+        SetInPin(pin);
+    else if (!pin->IsInput() && m_outPin == nullptr)
+        SetOutPin(pin);
+}
+
+Pin* Connection::GetInPin()
+{
+    return m_inPin;
+}
+
+void Connection::SetInPin(Pin* pin)
+{
+    m_inPin = pin;
+    m_inPin->SetConnected(true);
+}
+
+Pin* Connection::GetOutPin()
+{
+    return m_outPin;
+}
+
+void Connection::SetOutPin(Pin* pin)
+{
+    m_outPin = pin;
+    m_outPin->SetConnected(true);
 }
 
 void Connection::Update()
 {
-    m_state = m_pin1->GetState();
-    if (m_pin2 != nullptr)
-        m_pin2->SetState(m_state);
+    if (!(m_outPin != nullptr && m_inPin != nullptr))
+        return;
+
+    m_state = m_outPin->GetState();
+    m_inPin->SetState(m_state);
 }
 
 bool Connection::IsConnected()
 {
-    return m_pin2 != nullptr;
+    return m_outPin != nullptr;
 }
 
 void Connection::Draw(SDL_Renderer* renderer)
 {
-    if (m_pin1 == nullptr)
-        return;
-
     if (m_state)
         m_color = 0xff00ff00;
     else
         m_color = 0xff000000;
 
-    if (m_pin2 == nullptr)
-        thickLineColor(renderer, m_pin1->GetX(), m_pin1->GetY(), MS::x, MS::y, 10, m_color);
+    if (m_outPin == nullptr && m_inPin != nullptr)
+        thickLineColor(renderer, m_inPin->GetX(), m_inPin->GetY(), MS::x, MS::y, 10, m_color);
+    
+    if (m_inPin == nullptr && m_outPin != nullptr)
+        thickLineColor(renderer, m_outPin->GetX(), m_outPin->GetY(), MS::x, MS::y, 10, m_color);
 
-    if (m_pin1 != nullptr && m_pin2 != nullptr)
-        thickLineColor(renderer, m_pin1->GetX(), m_pin1->GetY(), m_pin2->GetX(), m_pin2->GetY(), 10, m_color); 
+    if (m_inPin != nullptr && m_outPin != nullptr)
+        thickLineColor(renderer, m_inPin->GetX(), m_inPin->GetY(), m_outPin->GetX(), m_outPin->GetY(), 10, m_color); 
 
 }

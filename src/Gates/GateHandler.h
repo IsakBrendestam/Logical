@@ -36,12 +36,14 @@ public:
 private:
     static void CheckGateSelection(int idnex);
     static void HandleGateMovement(int index);
+    static void RemoveGate();
     static void CreateConnection();
     static void CloseConnection();
     static void HandleConnections();
 
 private:
     static int m_movingGateIndex;
+    static int m_removeGateIndex;
     static std::vector<Gate*> m_gates;
     static std::vector<Connection*> m_connections;
     static State m_state;

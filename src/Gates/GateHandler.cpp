@@ -2,7 +2,8 @@
 
 #include "Debug.h"
 
-int GateHandler::m_movingGateIndex;
+int GateHandler::m_removeGateIndex = -1;
+int GateHandler::m_movingGateIndex = -1;
 std::vector<Gate*> GateHandler::m_gates;
 std::vector<Connection*> GateHandler::m_connections;
 Connection* GateHandler::m_tempConnection = nullptr;
@@ -33,6 +34,9 @@ void GateHandler::Update(double deltaTime)
         if (m_movingGateIndex >= 0)
             m_state = State::MOVING;
 
+        if (m_removeGateIndex >= 0)
+            RemoveGate();
+
         CreateConnection();
 
         break;
@@ -54,7 +58,7 @@ void GateHandler::Update(double deltaTime)
         break;
     
     case State::RESETTING:
-        if (!MS::lBtnDown)
+        if (!MS::lBtnDown && !MS::rBtnDown)
             m_state = State::DEFAULT;
         break;
     }
@@ -85,17 +89,26 @@ void GateHandler::CloseConnection()
         Pin* selectedPin = gate->GetSelectedPin();
         if (selectedPin != nullptr)
         {
-            if (selectedPin->GetId() != m_tempConnection->GetPin1()->GetId() &&
-                selectedPin->GetGateId() != m_tempConnection->GetPin1()->GetGateId() &&
-                selectedPin->IsInput() != m_tempConnection->GetPin1()->IsInput() &&
-                !selectedPin->GetConnected())
+            bool notSamePin = selectedPin->GetId() != m_tempConnection->GetFirstPin()->GetId();
+            bool notSameGate = selectedPin->GetGateId() != m_tempConnection->GetFirstPin()->GetGateId();
+            bool notSameType = selectedPin->IsInput() != m_tempConnection->GetFirstPin()->IsInput();
+            bool outPutNotConnected = !selectedPin->IsInput() || !selectedPin->GetConnected();
+
+            if (notSamePin && notSameGate && notSameType && outPutNotConnected)
             {
-                m_tempConnection->SetPin2(selectedPin);
+                m_tempConnection->SetSecondPin(selectedPin);
                 m_connections.push_back(m_tempConnection);
                 m_tempConnection = nullptr;
                 m_state = State::RESETTING;
             }
         }
+    }
+
+    if (MS::rBtnDown)
+    {
+        delete m_tempConnection;
+        m_tempConnection = nullptr;
+        m_state = State::RESETTING;
     }
 }
 
@@ -117,6 +130,10 @@ void GateHandler::CheckGateSelection(int index)
         gate->Select(MS::x, MS::y);
         m_movingGateIndex = index;
     }
+    else if (hover && MS::rBtnDown && m_removeGateIndex == -1)
+    {
+        m_removeGateIndex = index;
+    }
 
     if (!MS::lBtnDown)
         m_movingGateIndex = -1;
@@ -130,6 +147,13 @@ void GateHandler::HandleGateMovement(int index)
     Gate* gate = m_gates[index];
 
     gate->Move(MS::x, MS::y);
+}
+
+void GateHandler::RemoveGate()
+{
+    Log("test");
+    delete m_gates[m_removeGateIndex];
+    m_gates.erase(m_gates.begin() + m_removeGateIndex);
 }
 
 void GateHandler::Draw(SDL_Renderer* renderer)
