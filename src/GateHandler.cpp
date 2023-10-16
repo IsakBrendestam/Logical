@@ -18,6 +18,7 @@ void GateHandler::Initialize()
     m_gates.push_back(new Button(100, 500));
     m_gates.push_back(new NotGate(300, 300));
     m_gates.push_back(new AndGate(500, 500));
+    m_gates.push_back(new Lamp(900, 300));
 }
 
 void GateHandler::Update(double deltaTime, MouseState ms)
