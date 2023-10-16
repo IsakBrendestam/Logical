@@ -7,9 +7,13 @@
 /*                        Gate                      */
 /****************************************************/
 
+int Gate::id = 0;
+
 
 Gate::Gate(int xPos, int yPos, int nInputs, int nOutputs)
 {
+    m_id = ++id;
+
     m_moving = false;
 
     m_xPos = xPos;
@@ -41,7 +45,7 @@ void Gate::CreatePins(int nInputs, int nOutputs)
     // Creating Inputs
     for (int i = 0; i < nInputs; i++)
     {
-        m_inputs.push_back(new Pin(m_xPos, m_yPos+currentOffset, true));
+        m_inputs.push_back(new Pin(m_xPos, m_yPos+currentOffset, m_id, true));
 
         currentOffset += offset*2;
     }
@@ -52,7 +56,7 @@ void Gate::CreatePins(int nInputs, int nOutputs)
     // Creating Outputs
     for (int i = 0; i < nOutputs; i++)
     {
-        m_outputs.push_back(new Pin(m_xPos+m_width, m_yPos+currentOffset, false));
+        m_outputs.push_back(new Pin(m_xPos+m_width, m_yPos+currentOffset, m_id, false));
 
         currentOffset += offset*2;
     }
@@ -93,6 +97,11 @@ int Gate::GetXPos()
 int Gate::GetYPos()
 {
     return m_yPos;
+}
+
+int Gate::GetId()
+{
+    return m_id;
 }
 
 void Gate::Select(int x, int y)

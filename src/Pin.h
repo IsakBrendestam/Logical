@@ -8,7 +8,7 @@
 class Pin
 {
 public:
-    Pin(int xPos, int yPos, bool isInput);
+    Pin(int xPos, int yPos, int gateId, bool isInput);
 
     void Draw(SDL_Renderer* renderer);
     void Move(int xDiff, int yDiff);
@@ -18,6 +18,7 @@ public:
     bool GetState();
     void SetState(bool state);
     int GetId();
+    int GetGateId();
     int GetX();
     int GetY();
 
@@ -33,7 +34,7 @@ private:
     static int radius;
     
 private:
-    int m_id;
+    int m_id, m_gateId;
     int m_xPos, m_yPos;
     bool m_connected;
     bool m_state;

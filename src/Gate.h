@@ -23,6 +23,8 @@ public:
     int GetXPos();
     int GetYPos();
 
+    int GetId();
+
     bool Hover(int x, int y);
     void Select(int x, int y);
 
@@ -33,6 +35,10 @@ public:
 private:
     void UpdateRect();
     void CreatePins(int nInputs, int nOutputs);
+
+private:
+    static int id;
+    int m_id;
 
 protected:
     int m_xPos, m_yPos;

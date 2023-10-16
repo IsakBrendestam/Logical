@@ -9,10 +9,10 @@
 [ ] Add textures
 
 
-** BUGS **
+** ISSUES **
 14/10
 [ ] Can connect to pin on same gate
-[ ] Can connect input to input and output to output
+[X] Can connect input to input and output to output
 
 16/10
 [ ] Can create connection when moving gate

@@ -89,6 +89,7 @@ void GateHandler::CloseConnection(MouseState ms)
         if (selectedPin != nullptr)
         {
             if (selectedPin->GetId() != m_tempConnection->GetPin1()->GetId() &&
+                selectedPin->GetGateId() != m_tempConnection->GetPin1()->GetGateId() &&
                 selectedPin->IsInput() != m_tempConnection->GetPin1()->IsInput() &&
                 !selectedPin->GetConnected())
             {

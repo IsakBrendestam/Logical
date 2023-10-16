@@ -2,12 +2,14 @@
 
 #include "Debug.h"
 
-int Pin::id;
+int Pin::id = 0;
 int Pin::radius = 15;
 
-Pin::Pin(int xPos, int yPos, bool isInput)
+Pin::Pin(int xPos, int yPos, int gateId, bool isInput)
 {
     m_id = ++id;
+    m_gateId = gateId;
+    
     m_state = false;
     m_hover = false;
     m_connected = false;
@@ -51,6 +53,11 @@ void Pin::SetState(bool state)
 int Pin::GetId()
 {
     return m_id;
+}
+
+int Pin::GetGateId()
+{
+    return m_gateId;
 }
 
 int Pin::GetX()
