@@ -6,9 +6,9 @@
 #include <vector>
 
 #include "MouseState.h"
-#include "Pin.h"
-
 #include "MyMath.h"
+
+#include "Pin.h"
 
 class Gate
 {

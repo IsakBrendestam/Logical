@@ -7,9 +7,10 @@ BUILD_FLAGS=-O2 -c
 
 SRC=src
 UI=$(SRC)/GUI
+GATES=$(SRC)/Gates
+DEFAULT=$(GATES)/Default
+
 BUILD=build/objectFiles
-
-
 
 ifeq ($(OS),Windows_NT)
 	RM=del
@@ -35,45 +36,41 @@ else
     endif
 endif
 
-INC= -I$(SDL_DIR)/include -I$(SDL_gfx_DIR)/include
+INC= -I$(SDL_DIR)/include -I$(SDL_gfx_DIR)/include -I$(SRC)
 LIB= -L$(SDL_DIR)/lib -L$(SDL_gfx_DIR)/lib
+
+FILES=	$(BUILD)/Main.o \
+		$(BUILD)/Application.o \
+		$(BUILD)/Debug.o \
+		$(BUILD)/Gate.o \
+		$(BUILD)/GateHandler.o \
+		$(BUILD)/Pin.o \
+		$(BUILD)/Connection.o \
+		$(BUILD)/UI.o \
+		$(BUILD)/UIButton.o \
+		$(BUILD)/MouseState.o
 
 all: $(PROGRAM_FILE)
 
-$(PROGRAM_FILE): $(BUILD)/Main.o $(BUILD)/Application.o $(BUILD)/Debug.o $(BUILD)/Gate.o $(BUILD)/GateHandler.o $(BUILD)/Pin.o $(SRC)/MyMath.h $(BUILD)/Connection.o $(BUILD)/UI.o $(BUILD)/UIButton.o $(BUILD)/MouseState.o
-	$(GCC) $(INC) $(LIB) $(VS) $(AP_FLAGS) -o $(PROGRAM_FILE) $(BUILD)/Main.o $(BUILD)/Application.o $(BUILD)/Debug.o $(BUILD)/Gate.o $(BUILD)/GateHandler.o $(BUILD)/Pin.o $(BUILD)/Connection.o $(BUILD)/UI.o $(BUILD)/UIButton.o $(BUILD)/MouseState.o $(DEP)
+$(PROGRAM_FILE): $(FILES)
+	$(GCC) $(INC) $(LIB) $(VS) $(AP_FLAGS) -o $(PROGRAM_FILE) $^  $(DEP)
 
 $(BUILD)/Main.o: $(SRC)/Main.cpp $(SRC)/Application.h
 	$(GCC) $(INC) $(LIB) $(VS) -o $@ $(BUILD_FLAGS) $< $(DEP)
 
-$(BUILD)/Application.o: $(SRC)/Application.cpp $(SRC)/Application.h $(SRC)/Debug.h
+$(BUILD)/%.o: $(SRC)/%.cpp $(SRC)/%.h
 	$(GCC) $(INC) $(LIB) $(VS) -o $@ $(BUILD_FLAGS) $< $(DEP)
 
-$(BUILD)/Debug.o: $(SRC)/Debug.cpp $(SRC)/Debug.h
+$(BUILD)/%.o: $(UI)/%.cpp $(UI)/%.h
 	$(GCC) $(INC) $(LIB) $(VS) -o $@ $(BUILD_FLAGS) $< $(DEP)
 
-$(BUILD)/GateHandler.o: $(SRC)/GateHandler.cpp $(SRC)/GateHandler.h
+$(BUILD)/%.o: $(GATES)/%.cpp $(GATES)/%.h
 	$(GCC) $(INC) $(LIB) $(VS) -o $@ $(BUILD_FLAGS) $< $(DEP)
 
-$(BUILD)/Gate.o: $(SRC)/Gate.cpp $(SRC)/Gate.h
+$(BUILD)/%.o: $(DEFAULT)/%.cpp $(DEFAULT)/%.h
 	$(GCC) $(INC) $(LIB) $(VS) -o $@ $(BUILD_FLAGS) $< $(DEP)
 
-$(BUILD)/Pin.o: $(SRC)/Pin.cpp $(SRC)/Pin.h
-	$(GCC) $(INC) $(LIB) $(VS) -o $@ $(BUILD_FLAGS) $< $(DEP)
-
-$(BUILD)/Connection.o: $(SRC)/Connection.cpp $(SRC)/Connection.h
-	$(GCC) $(INC) $(LIB) $(VS) -o $@ $(BUILD_FLAGS) $< $(DEP)
-
-$(BUILD)/MouseState.o: $(SRC)/MouseState.cpp $(SRC)/MouseState.h
-	$(GCC) $(INC) $(LIB) $(VS) -o $@ $(BUILD_FLAGS) $< $(DEP)
-
-$(BUILD)/UI.o: $(UI)/UI.cpp $(UI)/UI.h
-	$(GCC) $(INC) $(LIB) $(VS) -o $@ $(BUILD_FLAGS) $< $(DEP)
-
-$(BUILD)/UIButton.o: $(UI)/UIButton.cpp $(UI)/UIButton.h
-	$(GCC) $(INC) $(LIB) $(VS) -o $@ $(BUILD_FLAGS) $< $(DEP)
-
-run:
+run: all
 	./$(PROGRAM_FILE)
 
 clean:

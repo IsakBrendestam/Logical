@@ -3,7 +3,7 @@
 #include <vector>
 
 #include "UIButton.h"
-#include "../MouseState.h"
+#include "MouseState.h"
 
 class UI
 {

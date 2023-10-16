@@ -1,4 +1,5 @@
 #include "GateHandler.h"
+
 #include "Debug.h"
 
 int GateHandler::m_movingGateIndex;

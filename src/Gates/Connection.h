@@ -2,8 +2,8 @@
 
 #include <SDL2/SDL.h>
 
-#include "Pin.h"
 #include "MouseState.h"
+#include "Pin.h"
 
 class Connection
 {

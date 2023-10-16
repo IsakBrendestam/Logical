@@ -3,9 +3,9 @@
 #include <SDL2/SDL.h>
 #include <functional>
 
-#include "../MouseState.h"
-#include "../Debug.h"
-#include "../GateHandler.h"
+#include "MouseState.h"
+#include "Debug.h"
+#include "Gates/GateHandler.h"
 
 class UIButton
 {

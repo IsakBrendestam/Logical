@@ -4,8 +4,8 @@
 #include <vector>
 
 #include "Gate.h"
-#include "MouseState.h"
 #include "Connection.h"
+#include "MouseState.h"
 
 enum State{
     DEFAULT,

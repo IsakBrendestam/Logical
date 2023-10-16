@@ -1,6 +1,6 @@
 #include "Application.h"
 
-#include "GateHandler.h"
+#include "Gates/GateHandler.h"
 #include "GUI/UI.h"
 
 Application::Application(std::string title)
