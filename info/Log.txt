@@ -1,11 +1,19 @@
 
 ** To Do **
-14/10
-* Change all MouseState (ms) to static class (MS)
-
+[ ] Change all MouseState (ms) to static class (MS)
+[ ] Implement buttons for all gates
+[ ] Implement or gate
+[ ] Implement xor gate
+[ ] Implement Clock
+[ ] Seperate Buttons from Toggles
+[ ] Add textures
 
 
 ** BUGS **
 14/10
-* Can connect to pin on same gate
-* Can connect input to input and output to output
+[ ] Can connect to pin on same gate
+[ ] Can connect input to input and output to output
+
+16/10
+[ ] Can create connection when moving gate
+[ ] Problem with update order (see Bug4.png)

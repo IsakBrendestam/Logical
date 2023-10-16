@@ -34,9 +34,20 @@ void GateHandler::Update(double deltaTime, MouseState ms)
             CheckGateSelection(ms, i);
 
         if (m_movingGateIndex >= 0)
-            HandleGateMovement(ms, m_movingGateIndex);
+            m_state = State::MOVING;
 
         CreateConnection(ms);
+
+        break;
+
+    case State::MOVING:
+        for (int i = 0; i < m_gates.size(); i++)
+            CheckGateSelection(ms, i);
+
+        if (m_movingGateIndex < 0)
+            m_state = State::RESETTING;
+
+        HandleGateMovement(ms, m_movingGateIndex); 
 
         break;
     
@@ -78,6 +89,7 @@ void GateHandler::CloseConnection(MouseState ms)
         if (selectedPin != nullptr)
         {
             if (selectedPin->GetId() != m_tempConnection->GetPin1()->GetId() &&
+                selectedPin->IsInput() != m_tempConnection->GetPin1()->IsInput() &&
                 !selectedPin->GetConnected())
             {
                 m_tempConnection->SetPin2(selectedPin);
@@ -114,6 +126,9 @@ void GateHandler::CheckGateSelection(MouseState ms, int index)
 
 void GateHandler::HandleGateMovement(MouseState ms, int index)
 {
+    if (index < 0 || index >= m_gates.size())
+        return;
+
     Gate* gate = m_gates[index];
 
     gate->Move(ms.x, ms.y);

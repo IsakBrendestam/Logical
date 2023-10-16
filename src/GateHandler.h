@@ -10,7 +10,8 @@
 enum State{
     DEFAULT,
     CONNECTING,
-    RESETTING
+    RESETTING,
+    MOVING
 };
 
 class GateHandler

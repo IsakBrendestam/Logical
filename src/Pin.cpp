@@ -20,7 +20,6 @@ Pin::Pin(int xPos, int yPos, bool isInput)
 
 bool Pin::IsInput()
 {
-    Log(m_isInput);
     return m_isInput;
 }
 
