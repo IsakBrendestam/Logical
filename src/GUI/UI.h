@@ -13,10 +13,8 @@ public:
 
     static void Draw(SDL_Renderer* renderer);
 
-    static void CreateAndButton();
-
 private:
-    static void AddButton(int x, int y);
+    static void CreateButtons();
 
 private:
     static std::vector<UIButton*> m_buttons;

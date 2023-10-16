@@ -28,6 +28,10 @@ public:
     static void Draw(SDL_Renderer* renderer);
 
     static void AddAndGate();
+    static void AddOrGate();
+    static void AddNotGate();
+    static void AddButton();
+    static void AddLamp();
 
 private:
     static void CheckGateSelection(int idnex);

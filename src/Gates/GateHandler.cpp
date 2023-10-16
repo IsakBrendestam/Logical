@@ -8,11 +8,6 @@ std::vector<Connection*> GateHandler::m_connections;
 Connection* GateHandler::m_tempConnection = nullptr;
 State GateHandler::m_state = State::DEFAULT;
 
-void GateHandler::AddAndGate()
-{
-    m_gates.push_back(new AndGate(MS::x, MS::y));
-}
-
 void GateHandler::Initialize()
 {
     m_gates.push_back(new Button(100, 600));
@@ -20,6 +15,7 @@ void GateHandler::Initialize()
     m_gates.push_back(new NotGate(300, 300));
     m_gates.push_back(new AndGate(500, 500));
     m_gates.push_back(new Lamp(900, 300));
+    m_gates.push_back(new OrGate(200, 800));
 }
 
 void GateHandler::Update(double deltaTime)
@@ -150,4 +146,33 @@ void GateHandler::Draw(SDL_Renderer* renderer)
 
     for (auto& connection : m_connections)
         connection->Draw(renderer);
+}
+
+
+// ********** Add Functions **********
+
+
+void GateHandler::AddAndGate()
+{
+    m_gates.push_back(new AndGate(MS::x, MS::y));
+}
+
+void GateHandler::AddOrGate()
+{
+    m_gates.push_back(new OrGate(MS::x, MS::y));
+}
+
+void GateHandler::AddNotGate()
+{
+    m_gates.push_back(new NotGate(MS::x, MS::y));
+}
+
+void GateHandler::AddButton()
+{
+    m_gates.push_back(new Button(MS::x, MS::y));
+}
+
+void GateHandler::AddLamp()
+{
+    m_gates.push_back(new Lamp(MS::x, MS::y));
 }

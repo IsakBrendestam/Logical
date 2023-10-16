@@ -35,3 +35,43 @@ public:
         m_func = GateHandler::AddAndGate;
     };
 };
+
+class OrButton: public UIButton
+{
+public:
+    OrButton(int x, int y):
+        UIButton(x, y, 100, 50) 
+    {
+        m_func = GateHandler::AddOrGate;
+    };
+};
+
+class NotButton: public UIButton
+{
+public:
+    NotButton(int x, int y):
+        UIButton(x, y, 100, 50) 
+    {
+        m_func = GateHandler::AddNotGate;
+    };
+};
+
+class BtnButton: public UIButton
+{
+public:
+    BtnButton(int x, int y):
+        UIButton(x, y, 100, 50) 
+    {
+        m_func = GateHandler::AddButton;
+    };
+};
+
+class LampButton: public UIButton
+{
+public:
+    LampButton(int x, int y):
+        UIButton(x, y, 100, 50) 
+    {
+        m_func = GateHandler::AddLamp;
+    };
+};
