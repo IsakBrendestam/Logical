@@ -1,59 +1,64 @@
 #include "Connection.h"
 
-int Connection::id;
-int Connection::radius = 15;
+#include "Debug.h"
 
-Connection::Connection(int xPos, int yPos)
+Connection::Connection(Pin* pin1)
 {
-    m_id = ++id;
     m_state = false;
-    m_hover = false;
-
-    m_xPos = xPos;
-    m_yPos = yPos;
+    SetPin1(pin1);
+    m_pin2 = nullptr;
 }
 
-int Connection::Radius()
+Pin* Connection::GetPin1()
 {
-    return radius;
+    return m_pin1;
 }
 
-bool Connection::GetState()
+void Connection::SetPin1(Pin* pin)
 {
-    return m_state;
+    m_pin1 = pin;
+    m_pin1->SetConnected(true);
 }
 
-void Connection::SetState(bool state)
+Pin* Connection::GetPin2()
 {
-    m_state = state;
+    return m_pin2;
 }
 
-int Connection::GetId()
+void Connection::SetPin2(Pin* pin)
 {
-    return m_id;
+    m_pin2 = pin;
+    m_pin2->SetConnected(true);
 }
 
-void Connection::Move(int xDiff, int yDiff)
+void Connection::Update(MouseState ms)
 {
-    m_xPos += xDiff;
-    m_yPos += yDiff;
+    m_ms = ms;
+
+    m_state = m_pin1->GetState();
+    if (m_pin2 != nullptr)
+        m_pin2->SetState(m_state);
 }
 
-bool Connection::Hover(int x, int y)
+bool Connection::IsConnected()
 {
-    m_hover = false;
-
-    if ((x-m_xPos)^2 + (y-m_yPos)^2 < radius^2)
-        m_hover = true;
-
-    return m_hover;
+    return m_pin2 != nullptr;
 }
 
 void Connection::Draw(SDL_Renderer* renderer)
 {
-    filledCircleColor(renderer, m_xPos, m_yPos, radius, 0xff000000);
-    if (m_hover)
-        filledCircleColor(renderer, m_xPos, m_yPos, radius*0.75f, 0xffffffff);
+    if (m_pin1 == nullptr)
+        return;
+
+    if (m_state)
+        m_color = 0xff00ff00;
+    else
+        m_color = 0xff000000;
+
+    if (m_pin2 == nullptr)
+        thickLineColor(renderer, m_pin1->GetX(), m_pin1->GetY(), m_ms.x, m_ms.y, 10, m_color);
+
+    if (m_pin1 != nullptr && m_pin2 != nullptr)
+        thickLineColor(renderer, m_pin1->GetX(), m_pin1->GetY(), m_pin2->GetX(), m_pin2->GetY(), 10, m_color); 
+
 }
-
-

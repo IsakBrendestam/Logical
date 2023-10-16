@@ -1,6 +1,6 @@
 #include "Gate.h"
 
-#include <iostream>
+#include "Debug.h"
 
 
 /****************************************************/
@@ -17,10 +17,13 @@ Gate::Gate(int xPos, int yPos, int nInputs, int nOutputs)
 
     int maxConenctions = MyMath::Max(nInputs, nOutputs);
 
-    m_height = Connection::Radius()*(maxConenctions*2 + 2);
+    m_height = Pin::Radius()*(maxConenctions*2 + 2);
     m_width = m_height*1.5;
 
-    CreateConnections(nInputs, nOutputs);
+    m_xPos -= m_width/2;
+    m_yPos -= m_height/2;
+
+    CreatePins(nInputs, nOutputs);
 
     m_rect.x = m_xPos;
     m_rect.y = m_yPos;
@@ -28,29 +31,58 @@ Gate::Gate(int xPos, int yPos, int nInputs, int nOutputs)
     m_rect.h = m_height;
 
     m_color = { 52, 78, 65, 0 };
-
 }
 
-void Gate::CreateConnections(int nInputs, int nOutputs)
+void Gate::CreatePins(int nInputs, int nOutputs)
 {
     int offset = m_height/(nInputs*2);
     int currentOffset = offset;
 
+    // Creating Inputs
     for (int i = 0; i < nInputs; i++)
     {
-        m_inputs.push_back(new Connection(m_xPos, m_yPos+currentOffset));
+        m_inputs.push_back(new Pin(m_xPos, m_yPos+currentOffset, true));
 
         currentOffset += offset*2;
     }
 
     offset = m_height/(nOutputs*2);
     currentOffset = offset;
+
+    // Creating Outputs
     for (int i = 0; i < nOutputs; i++)
     {
-        m_outputs.push_back(new Connection(m_xPos+m_width, m_yPos+currentOffset));
+        m_outputs.push_back(new Pin(m_xPos+m_width, m_yPos+currentOffset, false));
 
         currentOffset += offset*2;
     }
+}
+
+Pin* Gate::GetInputPin(int index)
+{
+    if (index < m_inputs.size())
+        return m_inputs[index];
+    return nullptr;
+}
+
+Pin* Gate::GetOutputPin(int index)
+{
+    if (index < m_outputs.size())
+        return m_outputs[index];
+    return nullptr;
+}
+
+Pin* Gate::GetSelectedPin(MouseState ms)
+{
+    for (auto& pin : m_inputs)
+        if (pin->Hover(ms.x, ms.y) && ms.lBtnDown)
+            return pin;
+
+    for (auto& pin : m_outputs)
+        if (pin->Hover(ms.x, ms.y) && ms.lBtnDown)
+            return pin;
+
+    return nullptr;
 }
 
 int Gate::GetXPos()
@@ -74,28 +106,34 @@ void Gate::Move(int x, int y)
     int oldX = m_xPos;
     int oldY = m_yPos;
 
+    // Move gate
     m_xPos = m_offsetX + x;
     m_yPos = m_offsetY + y;
     UpdateRect();
 
-    for (auto& connection: m_inputs)
-        connection->Move(m_xPos-oldX, m_yPos-oldY);
+    // Move inputs
+    for (auto& pin: m_inputs)
+        pin->Move(m_xPos-oldX, m_yPos-oldY);
 
-    for (auto& connection: m_outputs)
-        connection->Move(m_xPos-oldX, m_yPos-oldY);
+    // Move outputs
+    for (auto& pin: m_outputs)
+        pin->Move(m_xPos-oldX, m_yPos-oldY);
 }
 
 bool Gate::Hover(int x, int y)
 {
-    for (auto& connection: m_inputs)
-        connection->Hover(x, y);
+    bool conenctionHover = false;
 
-    for (auto& connection: m_outputs)
-        connection->Hover(x, y);
+    for (auto& pin: m_inputs)
+        conenctionHover = MyMath::Max(pin->Hover(x, y), conenctionHover);
 
+    for (auto& pin: m_outputs)
+        conenctionHover = MyMath::Max(pin->Hover(x, y), conenctionHover);
 
-    if (x > m_rect.x && x < m_rect.x + m_rect.w &&
-        y > m_rect.y && y < m_rect.y + m_rect.h)
+    // Only hover gate if not hovering a pin
+    if (x > m_xPos && x < m_xPos + m_width &&
+        y > m_yPos && y < m_yPos + m_height &&
+        !conenctionHover)
         return true;
     return false;
 }
@@ -106,21 +144,24 @@ void Gate::UpdateRect()
     m_rect.y = m_yPos;
 }
 
-void Gate::Logic()
+void Gate::Logic(MouseState ms)
 {
 
 }
 
 void Gate::Draw(SDL_Renderer* renderer)
 {
+    // Draw gate rect
     SDL_SetRenderDrawColor(renderer, m_color.r, m_color.g, m_color.b, m_color.a);
     SDL_RenderFillRect(renderer, &m_rect);
 
-    for (auto& connection: m_inputs)
-        connection->Draw(renderer);
+    // Draw inputs
+    for (auto& pin: m_inputs)
+        pin->Draw(renderer);
 
-    for (auto& connection: m_outputs)
-        connection->Draw(renderer);
+    // Draw outputs
+    for (auto& pin: m_outputs)
+        pin->Draw(renderer);
 }
 
 
@@ -135,7 +176,72 @@ AndGate::AndGate(int xPos, int yPos):
     m_color = { 92, 118, 105, 0 };
 }
 
-void AndGate::Logic()
+void AndGate::Logic(MouseState ms)
 {
-    m_outputs[0]->SetState(m_inputs[0]->GetState() && m_inputs[0]->GetState());
+    m_outputs[0]->SetState(m_inputs[0]->GetState() && m_inputs[1]->GetState());
+}
+
+/****************************************************/
+/*                       NotGate                    */
+/****************************************************/
+
+
+NotGate::NotGate(int xPos, int yPos): 
+    Gate(xPos, yPos, 1, 1) 
+{
+    m_color = { 92, 118, 105, 0 };
+}
+
+void NotGate::Logic(MouseState ms)
+{
+    if (m_inputs[0]->GetConnected() && m_outputs[0]->GetConnected())
+        m_outputs[0]->SetState(!m_inputs[0]->GetState());
+}
+
+
+
+/****************************************************/
+/*                       Button                     */
+/****************************************************/
+
+
+Button::Button(int xPos, int yPos): 
+    Gate(xPos, yPos, 0, 1) 
+{
+    m_color = { 92, 118, 105, 0 };
+    m_btnX = m_rect.x + m_rect.h/2;
+    m_btnY = m_rect.y + m_rect.h/2;
+    m_btnR = m_rect.h/2*0.7f;
+}
+
+void Button::Logic(MouseState ms)
+{
+    m_hoverBtn = false;
+
+    if (MyMath::Pow((ms.x-m_btnX)) + MyMath::Pow((ms.y-m_btnY)) < MyMath::Pow(m_btnR))
+        m_hoverBtn = true;
+
+    if (m_hoverBtn && ms.lBtnDown && !m_click)
+    {
+        m_outputs[0]->SetState(!m_outputs[0]->GetState());
+        m_click = true;
+    }
+    
+    if (!m_hoverBtn || !ms.lBtnDown)
+        m_click = false;
+}
+
+void Button::Draw(SDL_Renderer* renderer)
+{
+    Gate::Draw(renderer);
+
+    m_btnX = m_rect.x + m_rect.h/2;
+    m_btnY = m_rect.y + m_rect.h/2;
+    
+    if (m_click)
+        filledCircleColor(renderer, m_btnX, m_btnY, m_btnR, 0xffffffff); 
+    else if (m_hoverBtn)
+        filledCircleColor(renderer, m_btnX, m_btnY, m_btnR, 0xff888888);
+    else
+        filledCircleColor(renderer, m_btnX, m_btnY, m_btnR, 0xff000000);
 }

@@ -1,31 +1,28 @@
 #pragma once
 
 #include <SDL2/SDL.h>
-#include <SDL2/SDL2_gfxPrimitives.h>
+
+#include "Pin.h"
+#include "MouseState.h"
 
 class Connection
 {
 public:
-    Connection(int xPos, int yPos);
-
+    Connection(Pin* pin1);
+    void Update(MouseState ms);
     void Draw(SDL_Renderer* renderer);
-    void Move(int xDiff, int yDiff);
 
-    bool Hover(int x, int y);
+    void SetPin1(Pin* pin);
+    Pin* GetPin1();
+    void SetPin2(Pin* pin);
+    Pin* GetPin2();
 
-    bool GetState();
-    void SetState(bool state);
-    int GetId();
-
-    static int Radius();
+    bool IsConnected();
 
 private:
-    static int id;
-    static int radius;
-    
-private:
-    int m_id;
-    int m_xPos, m_yPos;
     bool m_state;
-    bool m_hover;
+    Uint32 m_color;
+    MouseState m_ms;
+    Pin* m_pin1;
+    Pin* m_pin2;
 };

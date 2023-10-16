@@ -1,25 +1,99 @@
 #include "GateHandler.h"
-#include <iostream>
+#include "Debug.h"
 
 int GateHandler::m_movingGateIndex;
 std::vector<Gate*> GateHandler::m_gates;
+std::vector<Connection*> GateHandler::m_connections;
+Connection* GateHandler::m_tempConnection = nullptr;
+State GateHandler::m_state = State::DEFAULT;
+
+void GateHandler::AddAndGate()
+{
+    m_gates.push_back(new AndGate(MS::x, MS::y));
+}
 
 void GateHandler::Initialize()
 {
-    m_gates.push_back(new Gate(300, 300, 1, 1));
+    m_gates.push_back(new Button(100, 600));
+    m_gates.push_back(new Button(100, 500));
+    m_gates.push_back(new NotGate(300, 300));
     m_gates.push_back(new AndGate(500, 500));
 }
 
 void GateHandler::Update(double deltaTime, MouseState ms)
 {
-    for (int i = 0; i < m_gates.size(); i++)
+    // Update Gates Logic
+    for (auto& gate : m_gates)
+        gate->Logic(ms);
+
+    switch (m_state)
     {
-        CheckGateSelection(ms, i);
-        m_gates[i]->Logic();
+    case State::DEFAULT:
+        for (int i = 0; i < m_gates.size(); i++)
+            CheckGateSelection(ms, i);
+
+        if (m_movingGateIndex >= 0)
+            HandleGateMovement(ms, m_movingGateIndex);
+
+        CreateConnection(ms);
+
+        break;
+    
+    case State::CONNECTING:
+        CloseConnection(ms);
+
+        break;
+    
+    case State::RESETTING:
+        if (!ms.lBtnDown)
+            m_state = State::DEFAULT;
+        break;
     }
 
-    if (m_movingGateIndex >= 0)
-        HandleGateMovement(ms, m_movingGateIndex);
+    HandleConnections(ms);
+}
+
+void GateHandler::CreateConnection(MouseState ms)
+{
+    for (auto& gate : m_gates)
+    {
+        Pin* selectedPin = gate->GetSelectedPin(ms);
+        if (selectedPin != nullptr)
+            if (!selectedPin->IsInput() || !selectedPin->GetConnected())
+            {
+                m_tempConnection = new Connection(selectedPin);
+                m_state = State::CONNECTING;
+            }
+    }
+}
+
+void GateHandler::CloseConnection(MouseState ms)
+{
+    m_tempConnection->Update(ms);
+
+    for (auto& gate : m_gates)
+    {
+        Pin* selectedPin = gate->GetSelectedPin(ms);
+        if (selectedPin != nullptr)
+        {
+            if (selectedPin->GetId() != m_tempConnection->GetPin1()->GetId() &&
+                !selectedPin->GetConnected())
+            {
+                m_tempConnection->SetPin2(selectedPin);
+                m_connections.push_back(m_tempConnection);
+                m_tempConnection = nullptr;
+                m_state = State::RESETTING;
+            }
+        }
+    }
+}
+
+void GateHandler::HandleConnections(MouseState ms)
+{
+    for (auto& connection : m_connections)
+    {
+        connection->Update(ms);
+    }
 }
 
 void GateHandler::CheckGateSelection(MouseState ms, int index)
@@ -52,4 +126,10 @@ void GateHandler::Draw(SDL_Renderer* renderer)
 
     if (m_movingGateIndex >= 0)
         m_gates[m_movingGateIndex]->Draw(renderer);
+
+    if (m_tempConnection != nullptr)
+        m_tempConnection->Draw(renderer);
+
+    for (auto& connection : m_connections)
+        connection->Draw(renderer);
 }

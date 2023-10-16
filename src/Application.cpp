@@ -1,6 +1,7 @@
 #include "Application.h"
 
 #include "GateHandler.h"
+#include "GUI/UI.h"
 
 Application::Application(std::string title)
 {
@@ -16,7 +17,6 @@ Application::Application(std::string title)
 
     // Enable V-Sync
     SDL_GL_SetSwapInterval(1);
-
 
     m_renderer = SDL_CreateRenderer(m_window, -1, 0);
 
@@ -88,10 +88,17 @@ int Application::Run()
         m_mouseState.rBtnDown = rMouseDown;
         SDL_GetMouseState(&m_mouseState.x, &m_mouseState.y); 
 
+        MS::lBtnDown = lMouseDown;
+        MS::rBtnDown = rMouseDown;
+        SDL_GetMouseState(&MS::x, &MS::y); 
+
         if (!WINDOWS)
         {
             m_mouseState.x *= 2;
-            m_mouseState.y *= 2;   
+            m_mouseState.y *= 2;     
+
+            MS::x *= 2;
+            MS::y *= 2;     
         }
 
         Update(m_deltaTime);
@@ -112,8 +119,9 @@ int Application::Run()
 
 void Application::Initialize()
 {
-    GateHandler::Initialize();
+    UI::Initialize();
 
+    GateHandler::Initialize();
 }
 
 void Application::Event(SDL_Event event)
@@ -124,6 +132,8 @@ void Application::Event(SDL_Event event)
 void Application::Update(double deltaTime)
 {
     GateHandler::Update(deltaTime, m_mouseState);
+
+    UI::Update(deltaTime, m_mouseState);
 }
 
 void Application::Draw()
@@ -131,6 +141,8 @@ void Application::Draw()
     SDL_RenderClear(m_renderer);
 
     GateHandler::Draw(m_renderer);
+
+    UI::Draw(m_renderer);
 
     SDL_SetRenderDrawColor(m_renderer, 218, 215, 205, 0);
     SDL_RenderPresent(m_renderer);
