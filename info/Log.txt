@@ -1,6 +1,6 @@
 
 ** To Do **
-[ ] Change all MouseState (ms) to static class (MS)
+[X] Change all MouseState (ms) to static class (MS)
 [ ] Implement buttons for all gates
 [ ] Implement or gate
 [ ] Implement xor gate

@@ -15,20 +15,20 @@ UIButton::UIButton(int x, int y, int w, int h)
     m_clickColor = {40, 40, 40, 0};
 }
 
-void UIButton::Update(MouseState ms)
+void UIButton::Update()
 {
     m_hover = false;
-    if (ms.x > m_xPos && ms.x < m_xPos+m_rect.w &&
-        ms.y > m_yPos && ms.x < m_yPos+m_rect.h)
+    if (MS::x > m_xPos && MS::x < m_xPos+m_rect.w &&
+        MS::y > m_yPos && MS::x < m_yPos+m_rect.h)
         m_hover = true;
 
-    if (m_hover && ms.lBtnDown && !m_click)
+    if (m_hover && MS::lBtnDown && !m_click)
     {
         Click();
         m_click = true;
     }
         
-    if (!ms.lBtnDown)
+    if (!MS::lBtnDown)
         m_click = false;
 }
 

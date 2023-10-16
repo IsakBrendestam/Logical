@@ -6,7 +6,7 @@ AndGate::AndGate(int xPos, int yPos):
     m_color = { 92, 118, 105, 0 };
 }
 
-void AndGate::Logic(MouseState ms)
+void AndGate::Logic()
 {
     m_outputs[0]->SetState(m_inputs[0]->GetState() && m_inputs[1]->GetState());
 }

@@ -7,5 +7,5 @@ class AndGate: public Gate
 {
 public:
     AndGate(int xPos, int yPos);
-    void Logic(MouseState ms) override;
+    void Logic() override;
 };

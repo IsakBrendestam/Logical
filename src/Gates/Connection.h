@@ -2,14 +2,15 @@
 
 #include <SDL2/SDL.h>
 
-#include "MouseState.h"
 #include "Pin.h"
+
+#include "MouseState.h"
 
 class Connection
 {
 public:
     Connection(Pin* pin1);
-    void Update(MouseState ms);
+    void Update();
     void Draw(SDL_Renderer* renderer);
 
     void SetPin1(Pin* pin);
@@ -22,7 +23,6 @@ public:
 private:
     bool m_state;
     Uint32 m_color;
-    MouseState m_ms;
     Pin* m_pin1;
     Pin* m_pin2;
 };

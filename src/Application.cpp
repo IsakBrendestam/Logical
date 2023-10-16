@@ -84,19 +84,12 @@ int Application::Run()
             Event(m_windowEvent);
         }
 
-        m_mouseState.lBtnDown = lMouseDown;
-        m_mouseState.rBtnDown = rMouseDown;
-        SDL_GetMouseState(&m_mouseState.x, &m_mouseState.y); 
-
         MS::lBtnDown = lMouseDown;
         MS::rBtnDown = rMouseDown;
         SDL_GetMouseState(&MS::x, &MS::y); 
 
         if (!WINDOWS)
         {
-            m_mouseState.x *= 2;
-            m_mouseState.y *= 2;     
-
             MS::x *= 2;
             MS::y *= 2;     
         }
@@ -131,9 +124,9 @@ void Application::Event(SDL_Event event)
 
 void Application::Update(double deltaTime)
 {
-    GateHandler::Update(deltaTime, m_mouseState);
+    GateHandler::Update(deltaTime);
 
-    UI::Update(deltaTime, m_mouseState);
+    UI::Update(deltaTime);
 }
 
 void Application::Draw()

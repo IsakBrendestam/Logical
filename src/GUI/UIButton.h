@@ -12,7 +12,7 @@ class UIButton
 public:
     UIButton(int x, int y, int w, int h);
     void Draw(SDL_Renderer* renderer);
-    void Update(MouseState ms);
+    void Update();
 
     inline void Click() {
         m_func();
@@ -29,11 +29,6 @@ protected:
 class AndButton: public UIButton
 {
 public:
-    inline static void Test()
-    {
-        Log("Working");
-    };
-
     AndButton(int x, int y):
         UIButton(x, y, 100, 50) 
     {

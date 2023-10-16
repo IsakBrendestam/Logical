@@ -70,14 +70,14 @@ Pin* Gate::GetOutputPin(int index)
     return nullptr;
 }
 
-Pin* Gate::GetSelectedPin(MouseState ms)
+Pin* Gate::GetSelectedPin()
 {
     for (auto& pin : m_inputs)
-        if (pin->Hover(ms.x, ms.y) && ms.lBtnDown)
+        if (pin->Hover(MS::x, MS::y) && MS::lBtnDown)
             return pin;
 
     for (auto& pin : m_outputs)
-        if (pin->Hover(ms.x, ms.y) && ms.lBtnDown)
+        if (pin->Hover(MS::x, MS::y) && MS::lBtnDown)
             return pin;
 
     return nullptr;
@@ -147,7 +147,7 @@ void Gate::UpdateRect()
     m_rect.y = m_yPos;
 }
 
-void Gate::Logic(MouseState ms)
+void Gate::Logic()
 {
 
 }

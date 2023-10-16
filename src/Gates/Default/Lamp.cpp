@@ -9,7 +9,7 @@ Lamp::Lamp(int xPos, int yPos):
     m_lampR = m_rect.h/2*0.7f;
 }
 
-void Lamp::Logic(MouseState ms)
+void Lamp::Logic()
 {
     m_state = false;
     if (m_inputs[0]->GetConnected())

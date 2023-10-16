@@ -22,55 +22,55 @@ void GateHandler::Initialize()
     m_gates.push_back(new Lamp(900, 300));
 }
 
-void GateHandler::Update(double deltaTime, MouseState ms)
+void GateHandler::Update(double deltaTime)
 {
     // Update Gates Logic
     for (auto& gate : m_gates)
-        gate->Logic(ms);
+        gate->Logic();
 
     switch (m_state)
     {
     case State::DEFAULT:
         for (int i = 0; i < m_gates.size(); i++)
-            CheckGateSelection(ms, i);
+            CheckGateSelection(i);
 
         if (m_movingGateIndex >= 0)
             m_state = State::MOVING;
 
-        CreateConnection(ms);
+        CreateConnection();
 
         break;
 
     case State::MOVING:
         for (int i = 0; i < m_gates.size(); i++)
-            CheckGateSelection(ms, i);
+            CheckGateSelection(i);
 
         if (m_movingGateIndex < 0)
             m_state = State::RESETTING;
 
-        HandleGateMovement(ms, m_movingGateIndex); 
+        HandleGateMovement(m_movingGateIndex); 
 
         break;
     
     case State::CONNECTING:
-        CloseConnection(ms);
+        CloseConnection();
 
         break;
     
     case State::RESETTING:
-        if (!ms.lBtnDown)
+        if (!MS::lBtnDown)
             m_state = State::DEFAULT;
         break;
     }
 
-    HandleConnections(ms);
+    HandleConnections();
 }
 
-void GateHandler::CreateConnection(MouseState ms)
+void GateHandler::CreateConnection()
 {
     for (auto& gate : m_gates)
     {
-        Pin* selectedPin = gate->GetSelectedPin(ms);
+        Pin* selectedPin = gate->GetSelectedPin();
         if (selectedPin != nullptr)
             if (!selectedPin->IsInput() || !selectedPin->GetConnected())
             {
@@ -80,13 +80,13 @@ void GateHandler::CreateConnection(MouseState ms)
     }
 }
 
-void GateHandler::CloseConnection(MouseState ms)
+void GateHandler::CloseConnection()
 {
-    m_tempConnection->Update(ms);
+    m_tempConnection->Update();
 
     for (auto& gate : m_gates)
     {
-        Pin* selectedPin = gate->GetSelectedPin(ms);
+        Pin* selectedPin = gate->GetSelectedPin();
         if (selectedPin != nullptr)
         {
             if (selectedPin->GetId() != m_tempConnection->GetPin1()->GetId() &&
@@ -103,37 +103,37 @@ void GateHandler::CloseConnection(MouseState ms)
     }
 }
 
-void GateHandler::HandleConnections(MouseState ms)
+void GateHandler::HandleConnections()
 {
     for (auto& connection : m_connections)
     {
-        connection->Update(ms);
+        connection->Update();
     }
 }
 
-void GateHandler::CheckGateSelection(MouseState ms, int index)
+void GateHandler::CheckGateSelection(int index)
 {
     Gate* gate = m_gates[index];
-    bool hover = gate->Hover(ms.x, ms.y);
+    bool hover = gate->Hover(MS::x, MS::y);
 
-    if (hover && ms.lBtnDown && m_movingGateIndex == -1)
+    if (hover && MS::lBtnDown && m_movingGateIndex == -1)
     {
-        gate->Select(ms.x, ms.y);
+        gate->Select(MS::x, MS::y);
         m_movingGateIndex = index;
     }
 
-    if (!ms.lBtnDown)
+    if (!MS::lBtnDown)
         m_movingGateIndex = -1;
 }
 
-void GateHandler::HandleGateMovement(MouseState ms, int index)
+void GateHandler::HandleGateMovement(int index)
 {
     if (index < 0 || index >= m_gates.size())
         return;
 
     Gate* gate = m_gates[index];
 
-    gate->Move(ms.x, ms.y);
+    gate->Move(MS::x, MS::y);
 }
 
 void GateHandler::Draw(SDL_Renderer* renderer)

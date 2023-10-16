@@ -5,17 +5,17 @@
 
 #include <vector>
 
-#include "MouseState.h"
 #include "MyMath.h"
 
 #include "Pin.h"
+#include "MouseState.h"
 
 class Gate
 {
 public:
     Gate(int xPos, int yPos, int nInputs, int nOutputs);
 
-    virtual void Logic(MouseState ms);
+    virtual void Logic();
     virtual void Draw(SDL_Renderer* renderer);
 
     virtual void Move(int x, int y);
@@ -30,7 +30,7 @@ public:
 
     Pin* GetInputPin(int index);
     Pin* GetOutputPin(int index);
-    Pin* GetSelectedPin(MouseState ms);
+    Pin* GetSelectedPin();
 
 private:
     void UpdateRect();
@@ -51,6 +51,4 @@ protected:
 
     std::vector<Pin*> m_inputs;
     std::vector<Pin*> m_outputs;
-
-    MouseState m_ms;
 };

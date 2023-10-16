@@ -31,10 +31,8 @@ void Connection::SetPin2(Pin* pin)
     m_pin2->SetConnected(true);
 }
 
-void Connection::Update(MouseState ms)
+void Connection::Update()
 {
-    m_ms = ms;
-
     m_state = m_pin1->GetState();
     if (m_pin2 != nullptr)
         m_pin2->SetState(m_state);
@@ -56,7 +54,7 @@ void Connection::Draw(SDL_Renderer* renderer)
         m_color = 0xff000000;
 
     if (m_pin2 == nullptr)
-        thickLineColor(renderer, m_pin1->GetX(), m_pin1->GetY(), m_ms.x, m_ms.y, 10, m_color);
+        thickLineColor(renderer, m_pin1->GetX(), m_pin1->GetY(), MS::x, MS::y, 10, m_color);
 
     if (m_pin1 != nullptr && m_pin2 != nullptr)
         thickLineColor(renderer, m_pin1->GetX(), m_pin1->GetY(), m_pin2->GetX(), m_pin2->GetY(), 10, m_color); 

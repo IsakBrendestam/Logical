@@ -17,10 +17,10 @@ void UI::CreateAndButton()
     m_buttons.push_back(new AndButton(100, 1300));
 }
 
-void UI::Update(double deltaTime, MouseState ms)
+void UI::Update(double deltaTime)
 {
     for (auto& button : m_buttons)
-        button->Update(ms);
+        button->Update();
 }
 
 void UI::Draw(SDL_Renderer* renderer)

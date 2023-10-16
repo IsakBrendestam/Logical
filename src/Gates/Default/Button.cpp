@@ -9,20 +9,20 @@ Button::Button(int xPos, int yPos):
     m_btnR = m_rect.h/2*0.7f;
 }
 
-void Button::Logic(MouseState ms)
+void Button::Logic()
 {
     m_hoverBtn = false;
 
-    if (MyMath::Pow((ms.x-m_btnX)) + MyMath::Pow((ms.y-m_btnY)) < MyMath::Pow(m_btnR))
+    if (MyMath::Pow((MS::x-m_btnX)) + MyMath::Pow((MS::y-m_btnY)) < MyMath::Pow(m_btnR))
         m_hoverBtn = true;
 
-    if (m_hoverBtn && ms.lBtnDown && !m_click)
+    if (m_hoverBtn && MS::lBtnDown && !m_click)
     {
         m_outputs[0]->SetState(!m_outputs[0]->GetState());
         m_click = true;
     }
     
-    if (!m_hoverBtn || !ms.lBtnDown)
+    if (!m_hoverBtn || !MS::lBtnDown)
         m_click = false;
 }
 

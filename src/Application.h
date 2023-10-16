@@ -48,7 +48,5 @@ private:
     double m_deltaTime;
     double m_fps;
 
-    MouseState m_mouseState;
-
 private:
 };

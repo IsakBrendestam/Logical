@@ -24,17 +24,17 @@ class GateHandler
 {
 public:
     static void Initialize();
-    static void Update(double deltaTime, MouseState ms);
+    static void Update(double deltaTime);
     static void Draw(SDL_Renderer* renderer);
 
     static void AddAndGate();
 
 private:
-    static void CheckGateSelection(MouseState ms, int idnex);
-    static void HandleGateMovement(MouseState ms, int index);
-    static void CreateConnection(MouseState ms);
-    static void CloseConnection(MouseState ms);
-    static void HandleConnections(MouseState ms);
+    static void CheckGateSelection(int idnex);
+    static void HandleGateMovement(int index);
+    static void CreateConnection();
+    static void CloseConnection();
+    static void HandleConnections();
 
 private:
     static int m_movingGateIndex;
