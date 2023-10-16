@@ -13,10 +13,16 @@ Connection::Connection(Pin* pin)
 Connection::~Connection()
 {
     if (m_inPin != nullptr)
+    {
+        m_inPin->SetState(false);
         m_inPin->SetConnected(false);
+    }
     
     if (m_outPin != nullptr)
+    {
+        m_outPin->SetState(false);
         m_outPin->SetConnected(false);
+    }
 }
 
 Pin* Connection::GetFirstPin()

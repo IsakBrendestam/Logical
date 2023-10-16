@@ -14,6 +14,7 @@ class Gate
 {
 public:
     Gate(int xPos, int yPos, int nInputs, int nOutputs);
+    ~Gate();
 
     virtual void Logic();
     virtual void Draw(SDL_Renderer* renderer);
@@ -31,6 +32,9 @@ public:
     Pin* GetInputPin(int index);
     Pin* GetOutputPin(int index);
     Pin* GetSelectedPin();
+
+    std::vector<Pin*> GetInputPins();
+    std::vector<Pin*> GetOutputPins(); 
 
 private:
     void UpdateRect();

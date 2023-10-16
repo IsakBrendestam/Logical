@@ -1,8 +1,8 @@
 
 ** To Do **
 [X] Change all MouseState (ms) to static class (MS)
-[ ] Implement buttons for all gates
-[ ] Implement or gate
+[X] Implement buttons for all current gates
+[X] Implement or gate
 [ ] Implement xor gate
 [ ] Implement Clock
 [ ] Seperate Buttons from Toggles
@@ -17,3 +17,7 @@
 16/10
 [X] Can create connection when moving gate
 [ ] Problem with update order (see Bug4.png)
+
+
+** Optimization **
+[ ] Optimize deletion of connection when gate is deleted

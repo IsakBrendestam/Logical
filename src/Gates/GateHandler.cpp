@@ -34,10 +34,10 @@ void GateHandler::Update(double deltaTime)
         if (m_movingGateIndex >= 0)
             m_state = State::MOVING;
 
+        CreateConnection();
+
         if (m_removeGateIndex >= 0)
             RemoveGate();
-
-        CreateConnection();
 
         break;
 
@@ -125,6 +125,12 @@ void GateHandler::CheckGateSelection(int index)
     Gate* gate = m_gates[index];
     bool hover = gate->Hover(MS::x, MS::y);
 
+    if (!MS::lBtnDown && m_movingGateIndex != -1)
+        m_movingGateIndex = -1;
+
+    if (!MS::rBtnDown && m_removeGateIndex != -1)
+        m_removeGateIndex = -1;
+
     if (hover && MS::lBtnDown && m_movingGateIndex == -1)
     {
         gate->Select(MS::x, MS::y);
@@ -134,9 +140,6 @@ void GateHandler::CheckGateSelection(int index)
     {
         m_removeGateIndex = index;
     }
-
-    if (!MS::lBtnDown)
-        m_movingGateIndex = -1;
 }
 
 void GateHandler::HandleGateMovement(int index)
@@ -151,9 +154,30 @@ void GateHandler::HandleGateMovement(int index)
 
 void GateHandler::RemoveGate()
 {
-    Log("test");
+    // Delete Connections
+    // Check inputs
+    for (auto& pin : m_gates[m_removeGateIndex]->GetInputPins())
+        for (int i = 0; i < m_connections.size(); i++)
+            if (pin->GetId() == m_connections[i]->GetInPin()->GetId())
+            {
+                delete m_connections[i];
+                m_connections.erase(m_connections.begin() + i);
+            }
+    
+    // Check outputs
+    for (auto& pin : m_gates[m_removeGateIndex]->GetOutputPins())
+        for (int i = 0; i < m_connections.size(); i++)
+            if (pin->GetId() == m_connections[i]->GetOutPin()->GetId())
+            {
+                delete m_connections[i];
+                m_connections.erase(m_connections.begin() + i);
+            }
+
+    // Delete Gate
     delete m_gates[m_removeGateIndex];
     m_gates.erase(m_gates.begin() + m_removeGateIndex);
+    m_state = State::RESETTING;
+
 }
 
 void GateHandler::Draw(SDL_Renderer* renderer)

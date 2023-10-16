@@ -9,6 +9,7 @@ class Pin
 {
 public:
     Pin(int xPos, int yPos, int gateId, bool isInput);
+    ~Pin();
 
     void Draw(SDL_Renderer* renderer);
     void Move(int xDiff, int yDiff);

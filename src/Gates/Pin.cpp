@@ -20,6 +20,11 @@ Pin::Pin(int xPos, int yPos, int gateId, bool isInput)
     m_isInput = isInput;
 }
 
+Pin::~Pin()
+{
+
+}
+
 bool Pin::IsInput()
 {
     return m_isInput;

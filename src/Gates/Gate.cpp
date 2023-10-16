@@ -31,6 +31,15 @@ Gate::Gate(int xPos, int yPos, int nInputs, int nOutputs)
     m_color = { 52, 78, 65, 0 };
 }
 
+Gate::~Gate()
+{
+    for (auto& pin: m_inputs)
+        delete pin;
+
+    for (auto& pin: m_outputs)
+        delete pin;
+}
+
 void Gate::CreatePins(int nInputs, int nOutputs)
 {
     int offset = m_height/(nInputs*2);
@@ -81,6 +90,16 @@ Pin* Gate::GetSelectedPin()
             return pin;
 
     return nullptr;
+}
+
+std::vector<Pin*> Gate::GetInputPins()
+{
+    return m_inputs;
+}
+
+std::vector<Pin*> Gate::GetOutputPins()
+{
+    return m_outputs;
 }
 
 int Gate::GetXPos()
