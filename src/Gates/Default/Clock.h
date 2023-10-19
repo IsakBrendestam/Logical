@@ -3,13 +3,15 @@
 #include "Gates/Gate.h"
 #include "MouseState.h"
 
-class Lamp: public Gate
+class Clock: public Gate
 {
 public:
-    Lamp(int xPos, int yPos);
+    Clock(int xPos, int yPos, int interval);
     void Logic(double deltaTime) override;
     void Draw(SDL_Renderer* renderer) override;
 private:
-    int m_lampX, m_lampY, m_lampR;
+    double m_timeSinceChange;
+    double m_interval;
+    int m_btnX, m_btnY, m_btnR;
     bool m_state;
 };

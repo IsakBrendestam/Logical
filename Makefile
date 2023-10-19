@@ -9,6 +9,7 @@ SRC=src
 UI=$(SRC)/GUI
 GATES=$(SRC)/Gates
 DEFAULT=$(GATES)/Default
+UTILITIES=$(SRC)/Utilities
 
 BUILD=build/objectFiles
 
@@ -36,7 +37,7 @@ else
     endif
 endif
 
-INC= -I$(SDL_DIR)/include -I$(SDL_gfx_DIR)/include -I$(SRC)
+INC= -I$(SDL_DIR)/include -I$(SDL_gfx_DIR)/include -I$(SRC) -I$(UTILITIES)
 LIB= -L$(SDL_DIR)/lib -L$(SDL_gfx_DIR)/lib
 
 FILES=	$(BUILD)/Main.o \
@@ -46,6 +47,7 @@ FILES=	$(BUILD)/Main.o \
 		$(BUILD)/GateHandler.o \
 		$(BUILD)/Pin.o \
 		$(BUILD)/Connection.o \
+		$(BUILD)/FileManager.o \
 		$(BUILD)/UI.o \
 		$(BUILD)/UIButton.o \
 		$(BUILD)/MouseState.o \
@@ -54,6 +56,7 @@ FILES=	$(BUILD)/Main.o \
 		$(BUILD)/Lamp.o \
 		$(BUILD)/NotGate.o \
 		$(BUILD)/OrGate.o \
+		$(BUILD)/Clock.o
 		
 
 all: $(PROGRAM_FILE)
@@ -74,6 +77,9 @@ $(BUILD)/%.o: $(GATES)/%.cpp $(GATES)/%.h
 	$(GCC) $(INC) $(LIB) $(VS) -o $@ $(BUILD_FLAGS) $< $(DEP)
 
 $(BUILD)/%.o: $(DEFAULT)/%.cpp $(DEFAULT)/%.h
+	$(GCC) $(INC) $(LIB) $(VS) -o $@ $(BUILD_FLAGS) $< $(DEP)
+
+$(BUILD)/%.o: $(UTILITIES)/%.cpp $(UTILITIES)/%.h
 	$(GCC) $(INC) $(LIB) $(VS) -o $@ $(BUILD_FLAGS) $< $(DEP)
 
 run: all

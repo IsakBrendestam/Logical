@@ -7,5 +7,5 @@ class NotGate: public Gate
 {
 public:
     NotGate(int xPos, int yPos);
-    void Logic() override;
+    void Logic(double deltaTime) override;
 };

@@ -7,5 +7,5 @@ class AndGate: public Gate
 {
 public:
     AndGate(int xPos, int yPos);
-    void Logic() override;
+    void Logic(double deltaTime) override;
 };

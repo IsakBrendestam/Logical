@@ -7,7 +7,7 @@ class Button: public Gate
 {
 public:
     Button(int xPos, int yPos);
-    void Logic() override;
+    void Logic(double deltaTime) override;
     void Draw(SDL_Renderer* renderer) override;
 private:
     bool m_hoverBtn;

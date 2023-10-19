@@ -166,7 +166,7 @@ void Gate::UpdateRect()
     m_rect.y = m_yPos;
 }
 
-void Gate::Logic()
+void Gate::Logic(double deltaTime)
 {
 
 }

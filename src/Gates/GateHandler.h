@@ -3,12 +3,13 @@
 #include <SDL2/SDL.h>
 #include <vector>
 
-#include "Gates/Gate.h"
-#include "Gates/Default/AndGate.h"
-#include "Gates/Default/Button.h"
-#include "Gates/Default/Lamp.h"
-#include "Gates/Default/NotGate.h"
-#include "Gates/Default/OrGate.h"
+#include "Gate.h"
+#include "Default/AndGate.h"
+#include "Default/Button.h"
+#include "Default/Lamp.h"
+#include "Default/NotGate.h"
+#include "Default/OrGate.h"
+#include "Default/Clock.h"
 
 #include "Connection.h"
 #include "MouseState.h"
@@ -32,6 +33,7 @@ public:
     static void AddNotGate();
     static void AddButton();
     static void AddLamp();
+    static void AddClock();
 
 private:
     static void CheckGateSelection(int idnex);

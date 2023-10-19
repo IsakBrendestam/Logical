@@ -1,5 +1,7 @@
 #include "UIButton.h"
 
+#include <iostream>
+
 UIButton::UIButton(int x, int y, int w, int h)
 {
     m_xPos = x;
@@ -13,6 +15,9 @@ UIButton::UIButton(int x, int y, int w, int h)
     m_color = {255, 255, 255, 0};
     m_hoverColor = {150, 150, 150, 0};
     m_clickColor = {40, 40, 40, 0};
+
+    m_font = FileManager::LoadFontFile("font1.ttf");
+    gfxPrimitivesSetFont(m_font.c_str(), 20, 20);
 }
 
 void UIButton::Update()
@@ -41,4 +46,7 @@ void UIButton::Draw(SDL_Renderer* renderer)
     else
         SDL_SetRenderDrawColor(renderer, m_color.r, m_color.g, m_color.b, m_color.a);
     SDL_RenderFillRect(renderer, &m_rect);
+
+    // Draw Text
+    stringColor(renderer, m_xPos, m_yPos, "test", 0xff000000);
 }

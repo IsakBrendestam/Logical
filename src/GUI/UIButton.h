@@ -5,6 +5,8 @@
 
 #include "MouseState.h"
 #include "Debug.h"
+#include "FileManager.h"
+
 #include "Gates/GateHandler.h"
 
 class UIButton
@@ -21,6 +23,7 @@ public:
 protected:
     SDL_Color m_color, m_hoverColor, m_clickColor;
     SDL_Rect m_rect;
+    std::string m_font;
     bool m_hover, m_click;
     int m_xPos, m_yPos;
     void (*m_func)();
@@ -73,5 +76,15 @@ public:
         UIButton(x, y, 100, 50) 
     {
         m_func = GateHandler::AddLamp;
+    };
+};
+
+class ClockButton: public UIButton
+{
+public:
+    ClockButton(int x, int y):
+        UIButton(x, y, 100, 50)
+    {
+        m_func = GateHandler::AddClock;   
     };
 };

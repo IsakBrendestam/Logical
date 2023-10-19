@@ -6,7 +6,7 @@ OrGate::OrGate(int xPos, int yPos):
     m_color = { 132, 158, 145, 0 };
 }
 
-void OrGate::Logic()
+void OrGate::Logic(double deltaTime)
 {
     m_outputs[0]->SetState(m_inputs[0]->GetState() || m_inputs[1]->GetState());
 }

@@ -16,7 +16,7 @@ public:
     Gate(int xPos, int yPos, int nInputs, int nOutputs);
     ~Gate();
 
-    virtual void Logic();
+    virtual void Logic(double deltaTime);
     virtual void Draw(SDL_Renderer* renderer);
 
     virtual void Move(int x, int y);

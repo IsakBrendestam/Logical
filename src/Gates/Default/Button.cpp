@@ -11,7 +11,7 @@ Button::Button(int xPos, int yPos):
     m_btnR = m_rect.h/2*0.7f;
 }
 
-void Button::Logic()
+void Button::Logic(double deltaTime)
 {
     m_hoverBtn = false;
 

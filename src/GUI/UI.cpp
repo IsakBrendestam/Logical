@@ -9,11 +9,19 @@ void UI::Initialize()
 
 void UI::CreateButtons()
 {
-    m_buttons.push_back(new AndButton(100, 1300));
-    m_buttons.push_back(new OrButton(250, 1300));
-    m_buttons.push_back(new NotButton(400, 1300));
-    m_buttons.push_back(new BtnButton(550, 1300));
-    m_buttons.push_back(new LampButton(700, 1300));
+    const int space = 150;
+    int xPos = 100;
+    m_buttons.push_back(new AndButton(xPos, 1300));
+    xPos += space;
+    m_buttons.push_back(new OrButton(xPos, 1300));
+    xPos += space;
+    m_buttons.push_back(new NotButton(xPos, 1300));
+    xPos += space;
+    m_buttons.push_back(new BtnButton(xPos, 1300));
+    xPos += space;
+    m_buttons.push_back(new LampButton(xPos, 1300));
+    xPos += space;
+    m_buttons.push_back(new ClockButton(xPos, 1300));
 }
 
 void UI::Update(double deltaTime)

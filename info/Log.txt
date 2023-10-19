@@ -5,17 +5,19 @@
 [X] Implement or gate
 [ ] Implement xor gate
 [ ] Implement Clock
+[ ] Implement Constants
+[ ] Implement removal of connection
 [ ] Seperate Buttons from Toggles
+[ ] Custom Gates
 [ ] Add textures
 
 
 ** ISSUES **
-14/10
 [X] Can connect to pin on same gate
 [X] Can connect input to input and output to output
-
-16/10
 [X] Can create connection when moving gate
+[X] Problem when removing gate with 2 connections to 1 output
+[ ] Crashes when all gates has been removed
 [ ] Problem with update order (see Bug4.png)
 
 
