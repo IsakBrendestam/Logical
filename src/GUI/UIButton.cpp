@@ -2,7 +2,7 @@
 
 #include <iostream>
 
-UIButton::UIButton(int x, int y, int w, int h)
+UIButton::UIButton(int x, int y, int w, int h, const std::string& text)
 {
     m_xPos = x;
     m_yPos = y;
@@ -12,20 +12,34 @@ UIButton::UIButton(int x, int y, int w, int h)
     m_rect.w = w;
     m_rect.h = h;
 
+    m_textRect = { m_rect.x,
+                   m_rect.y + m_rect.h/4,
+                   m_rect.w,
+                   m_rect.h };
+
     m_color = {255, 255, 255, 0};
     m_hoverColor = {150, 150, 150, 0};
     m_clickColor = {40, 40, 40, 0};
 
-    m_font = FileManager::LoadFontFile("font1.ttf");
-    gfxPrimitivesSetFont(m_font.c_str(), 20, 20);
+    TTF_Font* Sans = TTF_OpenFont("content/fonts/font.ttf", 24);
+
+    m_textSurface = TTF_RenderText_Solid(Sans, text.c_str(), {0, 0, 0}); 
+}
+
+UIButton::~UIButton()
+{
+    SDL_DestroyTexture(m_textTexture);
+    SDL_FreeSurface(m_textSurface);
 }
 
 void UIButton::Update()
 {
-    m_hover = false;
     if (MS::x > m_xPos && MS::x < m_xPos+m_rect.w &&
-        MS::y > m_yPos && MS::x < m_yPos+m_rect.h)
+        MS::y > m_yPos && MS::x < m_yPos+m_rect.h &&
+        (!MS::lBtnDown || m_hover))
         m_hover = true;
+    else
+        m_hover = false;
 
     if (m_hover && MS::lBtnDown && !m_click)
     {
@@ -48,5 +62,8 @@ void UIButton::Draw(SDL_Renderer* renderer)
     SDL_RenderFillRect(renderer, &m_rect);
 
     // Draw Text
-    stringColor(renderer, m_xPos, m_yPos, "test", 0xff000000);
+
+    m_textTexture = SDL_CreateTextureFromSurface(renderer, m_textSurface);
+    SDL_QueryTexture(m_textTexture, NULL, NULL, &m_textRect.w,&m_textRect.h);
+    SDL_RenderCopy(renderer, m_textTexture, NULL, &m_textRect);
 }

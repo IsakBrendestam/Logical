@@ -2,6 +2,6 @@
 
 int main(int argc, char *argv[])
 {
-    Application* app = new Application("window");
-    return app->Run();
+    Application app = Application("window");
+    return app.Run();
 }

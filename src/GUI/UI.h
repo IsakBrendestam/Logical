@@ -8,6 +8,7 @@ class UI
 {
 public:
     static void Initialize();
+    static void Deconstruct();
 
     static void Update(double deltaTime);
 

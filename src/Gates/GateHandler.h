@@ -25,6 +25,7 @@ class GateHandler
 {
 public:
     static void Initialize();
+    static void Deconstruct();
     static void Update(double deltaTime);
     static void Draw(SDL_Renderer* renderer);
 

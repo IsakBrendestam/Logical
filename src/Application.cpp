@@ -7,6 +7,7 @@ Application::Application(std::string title)
 {
     m_title = title;
 
+    // Initialize SDL
     SDL_Init(SDL_INIT_EVERYTHING);
     m_window = SDL_CreateWindow(m_title.c_str(), 
                                 SDL_WINDOWPOS_UNDEFINED, 
@@ -17,6 +18,9 @@ Application::Application(std::string title)
 
     // Enable V-Sync
     SDL_GL_SetSwapInterval(1);
+
+    // Initialize SDL_TTF
+    TTF_Init();
 
     m_renderer = SDL_CreateRenderer(m_window, -1, 0);
 
@@ -29,6 +33,7 @@ Application::~Application()
 {
     SDL_DestroyRenderer(m_renderer);
     SDL_DestroyWindow(m_window);
+    TTF_Quit();
     SDL_Quit();
 }
 
@@ -115,6 +120,13 @@ void Application::Initialize()
     UI::Initialize();
 
     GateHandler::Initialize();
+}
+
+void Application::Deconstruct()
+{
+    UI::Deconstruct();
+
+    GateHandler::Deconstruct();
 }
 
 void Application::Event(SDL_Event event)

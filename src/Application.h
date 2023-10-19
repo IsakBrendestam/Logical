@@ -1,5 +1,7 @@
 #pragma once
+
 #include <SDL2/SDL.h>
+#include <SDL2/SDL_ttf.h>
 #include <ctime>
 #include <string.h>
 
@@ -33,6 +35,7 @@ public:
 
     int Run();
     void Initialize();
+    void Deconstruct();
     void Event(SDL_Event event);
     void Update(double deltaTime);
     void Draw();

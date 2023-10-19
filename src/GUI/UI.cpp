@@ -7,6 +7,12 @@ void UI::Initialize()
     CreateButtons();
 }
 
+void UI::Deconstruct()
+{
+    for (auto& button : m_buttons)
+        delete button;
+}
+
 void UI::CreateButtons()
 {
     const int space = 150;

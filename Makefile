@@ -32,13 +32,14 @@ else
 		RM=rm
 		SDL_DIR=dep/SDL2/MAC
 		SDL_gfx_DIR=dep/SDL2_gfx/MAC
-		DEP=-lSDL2-2.0.0 -lSDL2_gfx
+		SDL_ttf_DIR=dep/SDL_ttf/MAC
+		DEP=-lSDL2-2.0.0 -lSDL2_gfx  -lSDL2_ttf
 		PROGRAM_FILE=build/program
     endif
 endif
 
-INC= -I$(SDL_DIR)/include -I$(SDL_gfx_DIR)/include -I$(SRC) -I$(UTILITIES)
-LIB= -L$(SDL_DIR)/lib -L$(SDL_gfx_DIR)/lib
+INC= -I$(SDL_DIR)/include -I$(SDL_gfx_DIR)/include -I$(SDL_ttf_DIR)/include  -I$(SRC) -I$(UTILITIES)
+LIB= -L$(SDL_DIR)/lib -L$(SDL_gfx_DIR)/lib -L$(SDL_ttf_DIR)/lib
 
 FILES=	$(BUILD)/Main.o \
 		$(BUILD)/Application.o \

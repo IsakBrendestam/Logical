@@ -17,6 +17,7 @@
 [X] Can connect input to input and output to output
 [X] Can create connection when moving gate
 [X] Problem when removing gate with 2 connections to 1 output
+[X] Can push ui button when moving gate
 [ ] Crashes when all gates has been removed
 [ ] Problem with update order (see Bug4.png)
 

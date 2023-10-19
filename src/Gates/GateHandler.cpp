@@ -19,6 +19,18 @@ void GateHandler::Initialize()
     m_gates.push_back(new OrGate(200, 800));
 }
 
+void GateHandler::Deconstruct()
+{
+    for (auto& gate : m_gates)
+        delete gate;
+    
+    for (auto& connection : m_connections)
+        delete connection;
+
+    if (m_tempConnection != nullptr)
+        delete m_tempConnection;
+}
+
 void GateHandler::Update(double deltaTime)
 {
     if (!MS::lBtnDown && m_movingGateIndex != -1)
