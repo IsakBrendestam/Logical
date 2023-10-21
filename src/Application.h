@@ -3,9 +3,8 @@
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_ttf.h>
 #include <ctime>
-#include <string.h>
+#include <string>
 
-#include "Debug.h"
 #include "MouseState.h"
 
 #define W_WIDTH 700

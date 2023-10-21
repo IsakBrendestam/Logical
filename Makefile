@@ -51,6 +51,7 @@ FILES=	$(BUILD)/Main.o \
 		$(BUILD)/Pin.o \
 		$(BUILD)/Connection.o \
 		$(BUILD)/FileManager.o \
+		$(BUILD)/InputHandler.o \
 		$(BUILD)/UI.o \
 		$(BUILD)/UIButton.o \
 		$(BUILD)/MouseState.o \

@@ -2,6 +2,9 @@
 
 #include "Gates/GateHandler.h"
 #include "GUI/UI.h"
+#include "Utilities/InputHandler.h"
+
+#include "Debug.h"
 
 Application::Application(std::string title)
 {
@@ -31,6 +34,7 @@ Application::Application(std::string title)
 
 Application::~Application()
 {
+    Deconstruct();
     SDL_DestroyRenderer(m_renderer);
     SDL_DestroyWindow(m_window);
     TTF_Quit();
@@ -131,7 +135,7 @@ void Application::Deconstruct()
 
 void Application::Event(SDL_Event event)
 {
-
+    InputHandler::Event(event);
 }
 
 void Application::Update(double deltaTime)

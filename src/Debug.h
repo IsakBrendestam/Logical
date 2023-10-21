@@ -6,7 +6,7 @@
 #define DEBUG 1
 
 #if DEBUG == 1
-    #define Log(...) std::cout << __VA_ARGS_ << std::endl
+    #define Log(x) std::cout << x << std::endl
 #else
     #define Log(x)
 #endif
