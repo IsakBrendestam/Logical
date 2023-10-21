@@ -29,6 +29,9 @@ public:
     static void Update(double deltaTime);
     static void Draw(SDL_Renderer* renderer);
 
+    static void Save();
+
+public:
     static void AddAndGate();
     static void AddOrGate();
     static void AddNotGate();

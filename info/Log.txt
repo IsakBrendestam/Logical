@@ -3,6 +3,7 @@
 [X] Change all MouseState (ms) to static class (MS)
 [X] Implement buttons for all current gates
 [X] Implement or gate
+[ ] Saving System
 [ ] Implement xor gate
 [ ] Implement Clock
 [ ] Implement Constants
@@ -18,7 +19,7 @@
 [X] Can create connection when moving gate
 [X] Problem when removing gate with 2 connections to 1 output
 [X] Can push ui button when moving gate
-[ ] Crashes when all gates has been removed
+[X] Crashes when all gates has been removed
 [ ] Problem with update order (see Bug4.png)
 
 

@@ -31,6 +31,11 @@ void GateHandler::Deconstruct()
         delete m_tempConnection;
 }
 
+void GateHandler::Save()
+{
+    
+}
+
 void GateHandler::Update(double deltaTime)
 {
     if (!MS::lBtnDown && m_movingGateIndex != -1)

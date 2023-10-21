@@ -2,8 +2,10 @@
 GCC=g++
 VS=-std=c++11
 
+PRINT = @echo
+
 SDL_DIR=dep/SDL2
-BUILD_FLAGS=-O2 -c
+BUILD_FLAGS=-O2 -c -Wall -Wno-unused-command-line-argument -Wno-delete-non-abstract-non-virtual-dtor
 
 SRC=src
 UI=$(SRC)/GUI
@@ -81,6 +83,13 @@ $(BUILD)/%.o: $(DEFAULT)/%.cpp $(DEFAULT)/%.h
 	$(GCC) $(INC) $(LIB) $(VS) -o $@ $(BUILD_FLAGS) $< $(DEP)
 
 $(BUILD)/%.o: $(UTILITIES)/%.cpp $(UTILITIES)/%.h
+	$(GCC) $(INC) $(LIB) $(VS) -o $@ $(BUILD_FLAGS) $< $(DEP)
+
+database: $(BUILD)/Database.o
+	g++ $(SRC)/Database/test.cpp -o build/Database $^ -lsqlite3
+	./build/Database
+
+$(BUILD)/%.o: $(SRC)/Database/%.cpp $(SRC)/Database/%.h
 	$(GCC) $(INC) $(LIB) $(VS) -o $@ $(BUILD_FLAGS) $< $(DEP)
 
 run: all
