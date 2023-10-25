@@ -245,3 +245,8 @@ void GateHandler::AddClock()
 {
     m_gates.push_back(new Clock(MS::x, MS::y, 50));
 }
+
+void GateHandler::AddDisplay()
+{
+    m_gates.push_back(new Display(MS::x, MS::y));
+}

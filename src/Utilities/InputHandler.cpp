@@ -28,8 +28,6 @@ void InputHandler::Event(SDL_Event event)
 
             break;
     }
-
-    Log(m_inputText);
 }
 
 void InputHandler::Reset()

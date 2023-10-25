@@ -16,18 +16,21 @@ void UI::Deconstruct()
 void UI::CreateButtons()
 {
     const int space = 150;
+    const int yPos = 1300;
     int xPos = 100;
-    m_buttons.push_back(new AndButton(xPos, 1300));
+    m_buttons.push_back(new AndButton(xPos, yPos));
     xPos += space;
-    m_buttons.push_back(new OrButton(xPos, 1300));
+    m_buttons.push_back(new OrButton(xPos, yPos));
     xPos += space;
-    m_buttons.push_back(new NotButton(xPos, 1300));
+    m_buttons.push_back(new NotButton(xPos, yPos));
     xPos += space;
-    m_buttons.push_back(new BtnButton(xPos, 1300));
+    m_buttons.push_back(new BtnButton(xPos, yPos));
     xPos += space;
-    m_buttons.push_back(new LampButton(xPos, 1300));
+    m_buttons.push_back(new LampButton(xPos, yPos));
     xPos += space;
-    m_buttons.push_back(new ClockButton(xPos, 1300));
+    m_buttons.push_back(new ClockButton(xPos, yPos));
+    xPos += space;
+    m_buttons.push_back(new DisplayButton(xPos, yPos));
 }
 
 void UI::Update(double deltaTime)

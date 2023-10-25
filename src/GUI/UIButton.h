@@ -93,3 +93,13 @@ public:
         m_func = GateHandler::AddClock;   
     };
 };
+
+class DisplayButton: public UIButton
+{
+public:
+    DisplayButton(int x, int y):
+        UIButton(x, y, 100, 50, "Display")
+    {
+        m_func = GateHandler::AddDisplay;   
+    };
+};

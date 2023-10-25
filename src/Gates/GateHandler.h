@@ -10,6 +10,7 @@
 #include "Default/NotGate.h"
 #include "Default/OrGate.h"
 #include "Default/Clock.h"
+#include "Default/Display.h"
 
 #include "Connection.h"
 #include "MouseState.h"
@@ -38,6 +39,7 @@ public:
     static void AddButton();
     static void AddLamp();
     static void AddClock();
+    static void AddDisplay();
 
 private:
     static void CheckGateSelection(int idnex);
