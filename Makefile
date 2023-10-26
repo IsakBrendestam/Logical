@@ -5,6 +5,8 @@ VS=-std=c++11
 PRINT = @echo
 
 SDL_DIR=dep/SDL2
+JSON_DIR=dep/json
+
 BUILD_FLAGS=-O2 -c -Wall -Wno-unused-command-line-argument -Wno-delete-non-abstract-non-virtual-dtor
 
 SRC=src
@@ -40,7 +42,7 @@ else
     endif
 endif
 
-INC= -I$(SDL_DIR)/include -I$(SDL_gfx_DIR)/include -I$(SDL_ttf_DIR)/include  -I$(SRC) -I$(UTILITIES)
+INC= -I$(SDL_DIR)/include -I$(SDL_gfx_DIR)/include -I$(SDL_ttf_DIR)/include -I$(JSON_DIR)/include -I$(SRC) -I$(UTILITIES)
 LIB= -L$(SDL_DIR)/lib -L$(SDL_gfx_DIR)/lib -L$(SDL_ttf_DIR)/lib
 
 FILES=	$(BUILD)/Main.o \
