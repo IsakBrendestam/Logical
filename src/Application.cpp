@@ -135,7 +135,24 @@ void Application::Deconstruct()
 
 void Application::Event(SDL_Event event)
 {
-    InputHandler::Event(event);
+    //InputHandler::Event(event);
+    switch (event.type)
+    {
+        case SDL_KEYDOWN:
+            if (event.key.keysym.sym == SDLK_s && SDL_GetModState() & 1024)
+            {
+                Log("Saving");
+                GateHandler::Save();
+            }
+
+            if (event.key.keysym.sym == SDLK_l && SDL_GetModState() & 1024)
+            {
+                Log("Loading");
+                GateHandler::Load();
+            }
+
+            break;
+    }
 }
 
 void Application::Update(double deltaTime)

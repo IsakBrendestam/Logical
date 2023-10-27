@@ -4,9 +4,10 @@
 
 int Gate::id = 0;
 
-Gate::Gate(int xPos, int yPos, int nInputs, int nOutputs)
+Gate::Gate(int xPos, int yPos, int nInputs, int nOutputs, std::string type)
 {
     m_id = ++id;
+    m_type = type;
 
     m_moving = false;
 
@@ -38,6 +39,26 @@ Gate::~Gate()
 
     for (auto& pin: m_outputs)
         delete pin;
+}
+
+json Gate::Save()
+{
+    json data;
+
+    data["id"] = m_id;
+    data["xPos"] = m_xPos+m_width/2;
+    data["yPos"] = m_yPos+m_height/2;
+    data["nInpits"] = m_inputs.size();
+    data["nOutputs"] = m_outputs.size();
+    data["type"] = m_type;
+
+    for (int i = 0; i < m_inputs.size(); i++)
+        data["inPinIDs"][i] = m_inputs[i]->GetId();
+
+    for (int i = 0; i < m_outputs.size(); i++)
+        data["outPinIDs"][i] = m_outputs[i]->GetId();
+
+    return data;
 }
 
 void Gate::CreatePins(int nInputs, int nOutputs)

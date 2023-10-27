@@ -3,7 +3,7 @@
 #include "Debug.h"
 
 Clock::Clock(int xPos, int yPos, int interval): 
-    Gate(xPos, yPos, 0, 1) 
+    Gate(xPos, yPos, 0, 1, "CLOCK") 
 {
     m_btnX = m_rect.x + m_rect.w/2;
     m_btnY = m_rect.y + m_rect.h/2;

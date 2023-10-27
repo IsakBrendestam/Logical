@@ -1,7 +1,7 @@
 #include "OrGate.h"
 
 OrGate::OrGate(int xPos, int yPos): 
-    Gate(xPos, yPos, 2, 1) 
+    Gate(xPos, yPos, 2, 1, "OR") 
 {
     m_color = { 132, 158, 145, 0 };
 }

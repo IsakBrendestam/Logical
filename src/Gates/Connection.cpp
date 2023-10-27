@@ -25,6 +25,14 @@ Connection::~Connection()
     }
 }
 
+json Connection::Save()
+{
+    json data;
+    data["Output"] = m_outPin->GetId();
+    data["Input"] = m_inPin->GetId();
+    return data;
+}
+
 Pin* Connection::GetFirstPin()
 {
     if (m_firstIn)

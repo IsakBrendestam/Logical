@@ -1,6 +1,7 @@
 #pragma once
 
 #include <SDL2/SDL.h>
+#include <nlohmann/json.hpp>
 #include <vector>
 
 #include "Gate.h"
@@ -13,7 +14,11 @@
 #include "Default/Display.h"
 
 #include "Connection.h"
+
+#include "Utilities/FileManager.h"
 #include "MouseState.h"
+
+using json = nlohmann::json;
 
 enum State{
     DEFAULT,
@@ -31,6 +36,7 @@ public:
     static void Draw(SDL_Renderer* renderer);
 
     static void Save();
+    static void Load();
 
 public:
     static void AddAndGate();

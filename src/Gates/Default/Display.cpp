@@ -3,7 +3,7 @@
 #include "Debug.h"
 
 Display::Display(int xPos, int yPos): 
-    Gate(xPos, yPos, 4, 0) 
+    Gate(xPos, yPos, 4, 0, "DISPLAY") 
 {
     m_segmentOffColor = {191, 191, 191, 255};
     m_segmentOnColor = {225, 48, 35, 255};

@@ -1,16 +1,22 @@
 #pragma once
 
 #include <SDL2/SDL.h>
+#include <nlohmann/json.hpp>
 
 #include "Pin.h"
 
 #include "MouseState.h"
+
+using json = nlohmann::json;
 
 class Connection
 {
 public:
     Connection(Pin* pin);
     ~Connection();
+    
+    json Save();
+
     void Update();
     void Draw(SDL_Renderer* renderer);
 

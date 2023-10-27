@@ -33,7 +33,43 @@ void GateHandler::Deconstruct()
 
 void GateHandler::Save()
 {
-    
+    json data;
+
+    for (int i = 0; i  < m_gates.size(); i++)
+        data["gateData"][i] = m_gates[i]->Save();
+
+    for (int i = 0; i < m_connections.size(); i++)
+        data["ConnectionData"][i] = m_connections[i]->Save();
+
+
+    FileManager::SaveJson(data, "test.json");
+}
+
+void GateHandler::Load()
+{
+    json data;
+    data = FileManager::LoadJson("test.json");
+
+    m_gates.clear();
+
+    for (auto& d : data["gateData"])
+    {
+        std::string type = d["type"];
+        if (type == "AND")
+            m_gates.push_back(new AndGate(d["xPos"], d["yPos"]));
+        else if (type == "OR")
+            m_gates.push_back(new OrGate(d["xPos"], d["yPos"]));
+        else if (type == "NOT")
+            m_gates.push_back(new NotGate(d["xPos"], d["yPos"]));
+        else if (type == "LAMP")
+            m_gates.push_back(new Lamp(d["xPos"], d["yPos"]));
+        else if (type == "BUTTON")
+            m_gates.push_back(new Button(d["xPos"], d["yPos"]));
+        else if (type == "CLOCK")
+            m_gates.push_back(new Clock(d["xPos"], d["yPos"], 1000));
+        else if (type == "DISPLAY")
+            m_gates.push_back(new Display(d["xPos"], d["yPos"]));
+    }
 }
 
 void GateHandler::Update(double deltaTime)

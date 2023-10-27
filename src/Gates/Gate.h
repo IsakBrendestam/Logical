@@ -2,24 +2,31 @@
 
 #include <SDL2/SDL.h>
 #include <SDL2/SDL2_gfxPrimitives.h>
+#include <nlohmann/json.hpp>
 
 #include <vector>
+#include <string>
 
 #include "MyMath.h"
 
 #include "Pin.h"
 #include "MouseState.h"
 
+using json = nlohmann::json;
+
 class Gate
 {
 public:
-    Gate(int xPos, int yPos, int nInputs, int nOutputs);
+    Gate(int xPos, int yPos, int nInputs, int nOutputs, std::string type);
     ~Gate();
 
     virtual void Logic(double deltaTime);
     virtual void Draw(SDL_Renderer* renderer);
 
     virtual void Move(int x, int y);
+
+    json Save();
+    void Load(json data);
 
     int GetXPos();
     int GetYPos();
@@ -55,4 +62,6 @@ protected:
 
     std::vector<Pin*> m_inputs;
     std::vector<Pin*> m_outputs;
+
+    std::string m_type;
 };

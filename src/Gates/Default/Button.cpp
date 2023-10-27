@@ -3,7 +3,7 @@
 #include "Debug.h"
 
 Button::Button(int xPos, int yPos): 
-    Gate(xPos, yPos, 0, 1) 
+    Gate(xPos, yPos, 0, 1, "BUTTON") 
 {
     m_color = { 92, 118, 105, 0 };
     m_btnX = m_rect.x + m_rect.w/2;
