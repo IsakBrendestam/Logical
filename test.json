@@ -2,48 +2,8 @@
     "connectionData": [
         {
             "input": {
-                "gateId": 6,
+                "gateId": 4,
                 "pinId": 0
-            },
-            "output": {
-                "gateId": 2,
-                "pinId": 0
-            }
-        },
-        {
-            "input": {
-                "gateId": 7,
-                "pinId": 0
-            },
-            "output": {
-                "gateId": 6,
-                "pinId": 0
-            }
-        },
-        {
-            "input": {
-                "gateId": 7,
-                "pinId": 1
-            },
-            "output": {
-                "gateId": 6,
-                "pinId": 0
-            }
-        },
-        {
-            "input": {
-                "gateId": 3,
-                "pinId": 0
-            },
-            "output": {
-                "gateId": 2,
-                "pinId": 0
-            }
-        },
-        {
-            "input": {
-                "gateId": 6,
-                "pinId": 1
             },
             "output": {
                 "gateId": 3,
@@ -89,6 +49,21 @@
             "yPos": 300
         },
         {
+            "id": 4,
+            "inPinIDs": [
+                0,
+                1
+            ],
+            "nInpits": 2,
+            "nOutputs": 1,
+            "outPinIDs": [
+                0
+            ],
+            "type": "AND",
+            "xPos": 670,
+            "yPos": 550
+        },
+        {
             "id": 5,
             "inPinIDs": [
                 0
@@ -111,22 +86,8 @@
                 0
             ],
             "type": "OR",
-            "xPos": 670,
-            "yPos": 666
-        },
-        {
-            "id": 7,
-            "inPinIDs": [
-                0,
-                1,
-                2,
-                3
-            ],
-            "nInpits": 4,
-            "nOutputs": 0,
-            "type": "DISPLAY",
-            "xPos": 1146,
-            "yPos": 614
+            "xPos": 200,
+            "yPos": 800
         }
     ]
 }

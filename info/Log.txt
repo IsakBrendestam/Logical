@@ -3,9 +3,10 @@
 [X] Change all MouseState (ms) to static class (MS)
 [X] Implement buttons for all current gates
 [X] Implement or gate
-[ ] Saving System
+[X] Saving System
+[X] Implement Clock
+[X] Implement Display
 [ ] Implement xor gate
-[ ] Implement Clock
 [ ] Implement Constants
 [ ] Implement removal of connection
 [ ] Seperate Buttons from Toggles
@@ -25,3 +26,4 @@
 
 ** Optimization **
 [ ] Optimize deletion of connection when gate is deleted
+[ ] Optimize loading of connections

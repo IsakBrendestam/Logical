@@ -3,6 +3,13 @@
 #include <vector>
 
 #include "UIButton.h"
+#include "GateButtons/AndButton.h"
+#include "GateButtons/BtnButton.h"
+#include "GateButtons/ClockButton.h"
+#include "GateButtons/DisplayButton.h"
+#include "GateButtons/LampButton.h"
+#include "GateButtons/NotButton.h"
+#include "GateButtons/OrButton.h"
 
 class UI
 {
