@@ -6,7 +6,7 @@
 class Display: public Gate
 {
 public:
-    Display(int xPos, int yPos);
+    Display(int xPos, int yPos, int id = -1);
     void Logic(double deltaTime) override;
     void Draw(SDL_Renderer* renderer) override;
 private:

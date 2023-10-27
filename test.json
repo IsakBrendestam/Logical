@@ -1,11 +1,63 @@
 {
+    "connectionData": [
+        {
+            "input": {
+                "gateId": 6,
+                "pinId": 0
+            },
+            "output": {
+                "gateId": 2,
+                "pinId": 0
+            }
+        },
+        {
+            "input": {
+                "gateId": 7,
+                "pinId": 0
+            },
+            "output": {
+                "gateId": 6,
+                "pinId": 0
+            }
+        },
+        {
+            "input": {
+                "gateId": 7,
+                "pinId": 1
+            },
+            "output": {
+                "gateId": 6,
+                "pinId": 0
+            }
+        },
+        {
+            "input": {
+                "gateId": 3,
+                "pinId": 0
+            },
+            "output": {
+                "gateId": 2,
+                "pinId": 0
+            }
+        },
+        {
+            "input": {
+                "gateId": 6,
+                "pinId": 1
+            },
+            "output": {
+                "gateId": 3,
+                "pinId": 0
+            }
+        }
+    ],
     "gateData": [
         {
             "id": 1,
             "nInpits": 0,
             "nOutputs": 1,
             "outPinIDs": [
-                1
+                0
             ],
             "type": "BUTTON",
             "xPos": 100,
@@ -16,7 +68,7 @@
             "nInpits": 0,
             "nOutputs": 1,
             "outPinIDs": [
-                2
+                0
             ],
             "type": "BUTTON",
             "xPos": 100,
@@ -25,36 +77,21 @@
         {
             "id": 3,
             "inPinIDs": [
-                3
+                0
             ],
             "nInpits": 1,
             "nOutputs": 1,
             "outPinIDs": [
-                4
+                0
             ],
             "type": "NOT",
             "xPos": 300,
             "yPos": 300
         },
         {
-            "id": 4,
-            "inPinIDs": [
-                5,
-                6
-            ],
-            "nInpits": 2,
-            "nOutputs": 1,
-            "outPinIDs": [
-                7
-            ],
-            "type": "AND",
-            "xPos": 500,
-            "yPos": 500
-        },
-        {
             "id": 5,
             "inPinIDs": [
-                8
+                0
             ],
             "nInpits": 1,
             "nOutputs": 0,
@@ -65,31 +102,31 @@
         {
             "id": 6,
             "inPinIDs": [
-                9,
-                10
+                0,
+                1
             ],
             "nInpits": 2,
             "nOutputs": 1,
             "outPinIDs": [
-                11
+                0
             ],
             "type": "OR",
-            "xPos": 200,
-            "yPos": 800
+            "xPos": 670,
+            "yPos": 666
         },
         {
             "id": 7,
             "inPinIDs": [
-                12,
-                13,
-                14,
-                15
+                0,
+                1,
+                2,
+                3
             ],
             "nInpits": 4,
             "nOutputs": 0,
             "type": "DISPLAY",
-            "xPos": 950,
-            "yPos": 940
+            "xPos": 1146,
+            "yPos": 614
         }
     ]
 }

@@ -2,12 +2,11 @@
 
 #include "Debug.h"
 
-int Pin::id = 0;
 int Pin::radius = 15;
 
-Pin::Pin(int xPos, int yPos, int gateId, bool isInput)
+Pin::Pin(int xPos, int yPos, int gateId, bool isInput, int id)
 {
-    m_id = ++id;
+    m_id = id;
     m_gateId = gateId;
     
     m_state = false;

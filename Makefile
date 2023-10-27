@@ -63,7 +63,7 @@ FILES=	$(BUILD)/Main.o \
 		$(BUILD)/NotGate.o \
 		$(BUILD)/OrGate.o \
 		$(BUILD)/Clock.o \
-		$(BUILD)/Display.o
+		$(BUILD)/Display.o \
 		
 
 all: $(PROGRAM_FILE)

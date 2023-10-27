@@ -2,8 +2,8 @@
 
 #include "Debug.h"
 
-Clock::Clock(int xPos, int yPos, int interval): 
-    Gate(xPos, yPos, 0, 1, "CLOCK") 
+Clock::Clock(int xPos, int yPos, int interval, int id): 
+    Gate(xPos, yPos, 0, 1, "CLOCK", id) 
 {
     m_btnX = m_rect.x + m_rect.w/2;
     m_btnY = m_rect.y + m_rect.h/2;
@@ -13,6 +13,15 @@ Clock::Clock(int xPos, int yPos, int interval):
     m_timeSinceChange = 0;
 
     m_interval = (double)interval/1000;
+}
+
+json Clock::Save()
+{
+    Log("test");
+    json data = Gate::Save();
+    data["interval"] = m_interval*1000;
+
+    return data;
 }
 
 void Clock::Logic(double deltaTime)

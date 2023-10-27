@@ -28,8 +28,10 @@ Connection::~Connection()
 json Connection::Save()
 {
     json data;
-    data["Output"] = m_outPin->GetId();
-    data["Input"] = m_inPin->GetId();
+    data["output"]["pinId"] = m_outPin->GetId();
+    data["output"]["gateId"] = m_outPin->GetGateId();
+    data["input"]["pinId"] = m_inPin->GetId();
+    data["input"]["gateId"] = m_inPin->GetGateId();
     return data;
 }
 

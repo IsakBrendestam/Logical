@@ -39,7 +39,7 @@ void GateHandler::Save()
         data["gateData"][i] = m_gates[i]->Save();
 
     for (int i = 0; i < m_connections.size(); i++)
-        data["ConnectionData"][i] = m_connections[i]->Save();
+        data["connectionData"][i] = m_connections[i]->Save();
 
 
     FileManager::SaveJson(data, "test.json");
@@ -51,24 +51,40 @@ void GateHandler::Load()
     data = FileManager::LoadJson("test.json");
 
     m_gates.clear();
+    m_connections.clear();
 
+    // Loading Gate
     for (auto& d : data["gateData"])
     {
         std::string type = d["type"];
         if (type == "AND")
-            m_gates.push_back(new AndGate(d["xPos"], d["yPos"]));
+            m_gates.push_back(new AndGate(d["xPos"], d["yPos"], d["id"]));
         else if (type == "OR")
-            m_gates.push_back(new OrGate(d["xPos"], d["yPos"]));
+            m_gates.push_back(new OrGate(d["xPos"], d["yPos"], d["id"]));
         else if (type == "NOT")
-            m_gates.push_back(new NotGate(d["xPos"], d["yPos"]));
+            m_gates.push_back(new NotGate(d["xPos"], d["yPos"], d["id"]));
         else if (type == "LAMP")
-            m_gates.push_back(new Lamp(d["xPos"], d["yPos"]));
+            m_gates.push_back(new Lamp(d["xPos"], d["yPos"], d["id"]));
         else if (type == "BUTTON")
-            m_gates.push_back(new Button(d["xPos"], d["yPos"]));
+            m_gates.push_back(new Button(d["xPos"], d["yPos"], d["id"]));
         else if (type == "CLOCK")
-            m_gates.push_back(new Clock(d["xPos"], d["yPos"], 1000));
+            m_gates.push_back(new Clock(d["xPos"], d["yPos"], d["interval"], d["id"]));
         else if (type == "DISPLAY")
-            m_gates.push_back(new Display(d["xPos"], d["yPos"]));
+            m_gates.push_back(new Display(d["xPos"], d["yPos"], d["id"]));
+    }
+
+    for (auto& d : data["connectionData"])
+    {
+        json inData = d["input"];
+        json outData = d["output"];
+
+        Gate* inputGate = GetGate(inData["gateId"]);
+        Gate* outputGate = GetGate(outData["gateId"]);
+
+        Connection* connection = new Connection(inputGate->GetInputPin(inData["pinId"]));
+        connection->SetSecondPin(outputGate->GetOutputPin(outData["pinId"]));
+
+        m_connections.push_back(connection);
     }
 }
 
@@ -125,6 +141,14 @@ void GateHandler::Update(double deltaTime)
     HandleConnections();
 }
 
+Gate* GateHandler::GetGate(int id)
+{
+    for (auto& gate : m_gates)
+        if (gate->GetId() == id)
+            return gate;
+    return nullptr;
+}
+
 void GateHandler::CreateConnection()
 {
     for (auto& gate : m_gates)
@@ -148,7 +172,8 @@ void GateHandler::CloseConnection()
         Pin* selectedPin = gate->GetSelectedPin();
         if (selectedPin != nullptr)
         {
-            bool notSamePin = selectedPin->GetId() != m_tempConnection->GetFirstPin()->GetId();
+            bool notSamePin = !(selectedPin->GetId() == m_tempConnection->GetFirstPin()->GetId() && 
+                                selectedPin->GetGateId() == m_tempConnection->GetFirstPin()->GetGateId());
             bool notSameGate = selectedPin->GetGateId() != m_tempConnection->GetFirstPin()->GetGateId();
             bool notSameType = selectedPin->IsInput() != m_tempConnection->GetFirstPin()->IsInput();
             bool outPutNotConnected = !selectedPin->IsInput() || !selectedPin->GetConnected();
@@ -211,7 +236,8 @@ void GateHandler::RemoveGate()
     // Check inputs
     for (auto& pin : m_gates[m_removeGateIndex]->GetInputPins())
         for (int i = m_connections.size()-1; i >= 0; i--)
-            if (pin->GetId() == m_connections[i]->GetInPin()->GetId())
+            if (pin->GetId() == m_connections[i]->GetInPin()->GetId() &&
+                pin->GetGateId() == m_connections[i]->GetInPin()->GetGateId())
             {
                 delete m_connections[i];
                 m_connections.erase(m_connections.begin() + i);
@@ -220,7 +246,8 @@ void GateHandler::RemoveGate()
     // Check outputs
     for (auto& pin : m_gates[m_removeGateIndex]->GetOutputPins())
         for (int i = m_connections.size()-1; i >= 0; i--)
-            if (pin->GetId() == m_connections[i]->GetOutPin()->GetId())
+            if (pin->GetId() == m_connections[i]->GetOutPin()->GetId() &&
+                pin->GetGateId() == m_connections[i]->GetOutPin()->GetGateId())
             {
                 delete m_connections[i];
                 m_connections.erase(m_connections.begin() + i);

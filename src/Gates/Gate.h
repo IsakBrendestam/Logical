@@ -17,7 +17,7 @@ using json = nlohmann::json;
 class Gate
 {
 public:
-    Gate(int xPos, int yPos, int nInputs, int nOutputs, std::string type);
+    Gate(int xPos, int yPos, int nInputs, int nOutputs, std::string type, int id = -1);
     ~Gate();
 
     virtual void Logic(double deltaTime);
@@ -25,7 +25,8 @@ public:
 
     virtual void Move(int x, int y);
 
-    json Save();
+    virtual json Save();
+
     void Load(json data);
 
     int GetXPos();
@@ -48,7 +49,7 @@ private:
     void CreatePins(int nInputs, int nOutputs);
 
 private:
-    static int id;
+    static int ID;
     int m_id;
 
 protected:

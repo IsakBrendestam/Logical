@@ -2,11 +2,15 @@
 
 #include "Debug.h"
 
-int Gate::id = 0;
+int Gate::ID;
 
-Gate::Gate(int xPos, int yPos, int nInputs, int nOutputs, std::string type)
+Gate::Gate(int xPos, int yPos, int nInputs, int nOutputs, std::string type, int id)
 {
-    m_id = ++id;
+    if (id == -1)
+        m_id = ++ID;
+    else
+        m_id = id;
+
     m_type = type;
 
     m_moving = false;
@@ -69,7 +73,7 @@ void Gate::CreatePins(int nInputs, int nOutputs)
     // Creating Inputs
     for (int i = 0; i < nInputs; i++)
     {
-        m_inputs.push_back(new Pin(m_xPos, m_yPos+currentOffset, m_id, true));
+        m_inputs.push_back(new Pin(m_xPos, m_yPos+currentOffset, m_id, true, i));
 
         currentOffset += offset*2;
     }
@@ -80,7 +84,7 @@ void Gate::CreatePins(int nInputs, int nOutputs)
     // Creating Outputs
     for (int i = 0; i < nOutputs; i++)
     {
-        m_outputs.push_back(new Pin(m_xPos+m_width, m_yPos+currentOffset, m_id, false));
+        m_outputs.push_back(new Pin(m_xPos+m_width, m_yPos+currentOffset, m_id, false, i));
 
         currentOffset += offset*2;
     }

@@ -6,6 +6,6 @@
 class NotGate: public Gate
 {
 public:
-    NotGate(int xPos, int yPos);
+    NotGate(int xPos, int yPos, int id = -1);
     void Logic(double deltaTime) override;
 };

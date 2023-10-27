@@ -8,7 +8,7 @@
 class Pin
 {
 public:
-    Pin(int xPos, int yPos, int gateId, bool isInput);
+    Pin(int xPos, int yPos, int gateId, bool isInput, int id);
     ~Pin();
 
     void Draw(SDL_Renderer* renderer);
@@ -31,7 +31,6 @@ public:
     static int Radius();
 
 private:
-    static int id;
     static int radius;
     
 private:

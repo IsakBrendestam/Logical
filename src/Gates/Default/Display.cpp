@@ -2,8 +2,8 @@
 
 #include "Debug.h"
 
-Display::Display(int xPos, int yPos): 
-    Gate(xPos, yPos, 4, 0, "DISPLAY") 
+Display::Display(int xPos, int yPos, int id): 
+    Gate(xPos, yPos, 4, 0, "DISPLAY", id) 
 {
     m_segmentOffColor = {191, 191, 191, 255};
     m_segmentOnColor = {225, 48, 35, 255};

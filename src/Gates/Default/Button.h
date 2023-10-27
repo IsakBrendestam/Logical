@@ -6,7 +6,7 @@
 class Button: public Gate
 {
 public:
-    Button(int xPos, int yPos);
+    Button(int xPos, int yPos, int id = -1);
     void Logic(double deltaTime) override;
     void Draw(SDL_Renderer* renderer) override;
 private:

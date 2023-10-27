@@ -1,7 +1,7 @@
 #include "Lamp.h"
 
-Lamp::Lamp(int xPos, int yPos): 
-    Gate(xPos, yPos, 1, 0, "LAMP") 
+Lamp::Lamp(int xPos, int yPos, int id): 
+    Gate(xPos, yPos, 1, 0, "LAMP", id) 
 {
     m_color = { 92, 118, 105, 0 };
     m_lampX = m_rect.x + m_rect.h/2;

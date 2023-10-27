@@ -54,6 +54,7 @@ private:
     static void CreateConnection();
     static void CloseConnection();
     static void HandleConnections();
+    static Gate* GetGate(int id);
 
 private:
     static int m_movingGateIndex;

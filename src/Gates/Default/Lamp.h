@@ -6,7 +6,7 @@
 class Lamp: public Gate
 {
 public:
-    Lamp(int xPos, int yPos);
+    Lamp(int xPos, int yPos, int id = -1);
     void Logic(double deltaTime) override;
     void Draw(SDL_Renderer* renderer) override;
 private:
