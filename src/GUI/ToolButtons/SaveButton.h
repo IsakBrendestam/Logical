@@ -6,8 +6,8 @@
 class SaveButton: public UIButton
 {
 public:
-    SaveButton(int x, int y):
-        UIButton(x, y, 100, 70, "Save") 
+    SaveButton(int x, int y, int w, int h):
+        UIButton(x, y, w, h, "Save") 
     {
         m_func = GateHandler::Save;
     };

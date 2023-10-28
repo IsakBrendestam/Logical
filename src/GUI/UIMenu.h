@@ -18,7 +18,7 @@
 class UIMenu
 {
 public:
-    UIMenu(const std::string& text);
+    UIMenu(const std::string& title);
     ~UIMenu();
 
     void Open();
@@ -30,8 +30,13 @@ public:
     void Update();
 
 protected:
+    virtual void CreateButtons();
+    void AddButton(UIButton* btn);
+
+protected:
     bool m_open;
     int m_xPos, m_yPos;
+    int m_width, m_height;
     SDL_Color m_color;
     SDL_Rect m_rect;
     SDL_Rect m_textRect;

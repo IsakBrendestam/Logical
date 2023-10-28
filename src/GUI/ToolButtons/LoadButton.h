@@ -6,8 +6,8 @@
 class LoadButton: public UIButton
 {
 public:
-    LoadButton(int x, int y):
-        UIButton(x, y, 100, 70, "Load") 
+    LoadButton(int x, int y, int w, int h):
+        UIButton(x, y, w, h, "Load") 
     {
         m_func = GateHandler::Load;
     };

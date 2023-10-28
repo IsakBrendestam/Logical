@@ -48,8 +48,8 @@
                 0
             ],
             "type": "AND",
-            "xPos": 500,
-            "yPos": 500
+            "xPos": 776,
+            "yPos": 814
         },
         {
             "id": 5,
@@ -59,8 +59,8 @@
             "nInpits": 1,
             "nOutputs": 0,
             "type": "LAMP",
-            "xPos": 900,
-            "yPos": 300
+            "xPos": 1110,
+            "yPos": 360
         },
         {
             "id": 6,
@@ -74,8 +74,8 @@
                 0
             ],
             "type": "OR",
-            "xPos": 374,
-            "yPos": 726
+            "xPos": 200,
+            "yPos": 800
         }
     ]
 }

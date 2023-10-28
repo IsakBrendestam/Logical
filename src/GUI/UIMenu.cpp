@@ -1,28 +1,28 @@
 #include "UIMenu.h"
 
-UIMenu::UIMenu(const std::string& text)
+UIMenu::UIMenu(const std::string& title)
 {
-    int width = T_WIDTH/5;
-    int height = T_HEIGHT/3;
+    m_width = T_WIDTH/5;
+    m_height = T_HEIGHT/3;
 
-    m_xPos = T_WIDTH/2-width/2;
-    m_yPos = T_HEIGHT/2-height/2;
+    m_xPos = T_WIDTH/2-m_width/2;
+    m_yPos = T_HEIGHT/2-m_height/2;
 
     m_rect.x = m_xPos;
     m_rect.y = m_yPos;
-    m_rect.w = width;
-    m_rect.h = height;
+    m_rect.w = m_width;
+    m_rect.h = m_height;
 
-    m_textRect = { m_rect.x,
-                   m_rect.y + m_rect.h/4,
-                   m_rect.w,
-                   m_rect.h };
-
-    m_color = {255, 255, 255, 0};
+    m_color = {100, 100, 100, 0};
 
     TTF_Font* font = TTF_OpenFont("res/fonts/font.ttf", 24);
 
-    m_textSurface = TTF_RenderText_Solid(font, text.c_str(), {0, 0, 0});
+    m_textSurface = TTF_RenderText_Solid(font, title.c_str(), {0, 0, 0});
+    
+    m_textRect = { m_rect.x + m_rect.w / 2 - m_textSurface->w/2,
+                   m_rect.y + m_rect.h/12,
+                   m_rect.w,
+                   m_rect.h };
 
     m_open = false;
 }
@@ -52,6 +52,15 @@ void UIMenu::Close()
 bool UIMenu::IsOpen()
 {
     return m_open;
+}
+
+void UIMenu::CreateButtons()
+{
+}
+
+void UIMenu::AddButton(UIButton* btn)
+{
+    m_buttons.push_back(btn);
 }
 
 void UIMenu::Update()

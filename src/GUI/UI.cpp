@@ -11,7 +11,7 @@ void UI::Initialize()
     CreateToolButtons();
     CreateGateButtons();
 
-    m_menu = new UIMenu("Main Menu");
+    m_menu = new MainMenu();
 }
 
 void UI::Deconstruct()
@@ -45,13 +45,11 @@ void UI::CreateToolButtons()
 {
     const int space = 150;
     const int yPos = 50;
-    int xPos = 850;
+    int xPos = 1000;
 
-    m_buttons.push_back(new SaveButton(xPos, yPos));
+    m_buttons.push_back(new SaveButton(xPos, yPos, 100, 50));
     xPos += space;
-    m_buttons.push_back(new LoadButton(xPos, yPos));
-    xPos += space;
-    m_buttons.push_back(new QuitButton(xPos, yPos));
+    m_buttons.push_back(new LoadButton(xPos, yPos, 100, 50));
 }
 
 bool UI::MenuOpen()
