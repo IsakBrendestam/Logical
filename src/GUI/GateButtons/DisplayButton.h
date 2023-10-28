@@ -9,6 +9,6 @@ public:
     DisplayButton(int x, int y):
         UIButton(x, y, 100, 50, "Display")
     {
-        m_func = GateHandler::AddDisplay;   
+        UIButton::SetFunc(GateHandler::AddDisplay);
     };
 };

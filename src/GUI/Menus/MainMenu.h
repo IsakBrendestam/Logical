@@ -2,6 +2,8 @@
 
 #include "GUI/UIMenu.h"
 
+#include "GUI/UIButton.h"
+
 #include "GUI/ToolButtons/LoadButton.h"
 #include "GUI/ToolButtons/SaveButton.h"
 #include "GUI/ToolButtons/QuitButton.h"
@@ -27,6 +29,10 @@ public:
 
         y += btnOffset + height;
         UIMenu::AddButton(new LoadButton(x, y, width, height));
+
+        y += btnOffset + height;
+        UIButton* loadBtn = new UIButton(x, y, width, height, "Load 1");
+        UIMenu::AddButton(loadBtn);
 
         y = m_yPos + 7*m_height/8 - height/2;
         UIMenu::AddButton(new QuitButton(x, y, width, height));

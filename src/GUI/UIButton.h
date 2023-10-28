@@ -18,8 +18,14 @@ public:
     void Enable();
     void Disable();
 
+    inline void SetFunc(void (*func)())
+    {
+        m_func = func;
+    }
+
     inline void Click() {
-        m_func();
+        if (m_func != nullptr)
+            m_func();
     };
 
 protected:

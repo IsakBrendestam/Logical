@@ -9,6 +9,6 @@ public:
     SaveButton(int x, int y, int w, int h):
         UIButton(x, y, w, h, "Save") 
     {
-        m_func = GateHandler::Save;
+        UIButton::SetFunc(GateHandler::Save);
     };
 };

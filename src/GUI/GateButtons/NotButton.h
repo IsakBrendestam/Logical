@@ -9,6 +9,6 @@ public:
     NotButton(int x, int y):
         UIButton(x, y, 100, 50, "Not") 
     {
-        m_func = GateHandler::AddNotGate;
+        UIButton::SetFunc(GateHandler::AddNotGate);
     };
 };

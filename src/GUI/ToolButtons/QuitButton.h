@@ -9,6 +9,6 @@ public:
     QuitButton(int x, int y, int w, int h):
         UIButton(x, y, w, h, "Quit") 
     {
-        m_func = System::ShutDown;
+        UIButton::SetFunc(System::ShutDown);
     };
 };

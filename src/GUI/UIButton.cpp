@@ -27,6 +27,8 @@ UIButton::UIButton(int x, int y, int w, int h, const std::string& text)
                    m_rect.y + m_rect.h/2 - m_textSurface->h/2,
                    m_rect.w,
                    m_rect.h };
+
+    m_func = nullptr;
 }
 
 UIButton::~UIButton()

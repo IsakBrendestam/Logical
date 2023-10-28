@@ -9,6 +9,6 @@ public:
     LoadButton(int x, int y, int w, int h):
         UIButton(x, y, w, h, "Load") 
     {
-        m_func = GateHandler::Load;
+        UIButton::SetFunc(GateHandler::Load);
     };
 };
