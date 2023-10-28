@@ -11,14 +11,11 @@
 #include "Gates/GateHandler.h"
 
 #include "UIButton.h"
-#include "ToolButtons/LoadButton.h"
-#include "ToolButtons/SaveButton.h"
-#include "ToolButtons/QuitButton.h"
 
 class UIMenu
 {
 public:
-    UIMenu(const std::string& title);
+    UIMenu(const std::string& title, bool startState=false);
     ~UIMenu();
 
     void Open();

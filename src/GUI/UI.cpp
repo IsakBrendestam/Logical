@@ -57,6 +57,18 @@ bool UI::MenuOpen()
     return m_menu->IsOpen();
 }
 
+void UI::SwichToLoadMenu()
+{
+    delete m_menu;
+    m_menu = new LoadMenu();
+}
+
+void UI::SwichToMainMenu()
+{
+    delete m_menu;
+    m_menu = new MainMenu();
+}
+
 void UI::Event(SDL_Event event)
 {
     switch (event.type)

@@ -1,6 +1,6 @@
 #include "UIMenu.h"
 
-UIMenu::UIMenu(const std::string& title)
+UIMenu::UIMenu(const std::string& title, bool startState)
 {
     m_width = T_WIDTH/5;
     m_height = T_HEIGHT/3;
@@ -24,7 +24,7 @@ UIMenu::UIMenu(const std::string& title)
                    m_rect.w,
                    m_rect.h };
 
-    m_open = false;
+    m_open = startState;
 }
 
 UIMenu::~UIMenu()

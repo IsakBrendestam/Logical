@@ -2,13 +2,15 @@
 
 #include "GUI/UIMenu.h"
 
+#include "GUI/ToolButtons/LoadButton.h"
+#include "GUI/ToolButtons/SaveButton.h"
 #include "GUI/ToolButtons/QuitButton.h"
 
 class MainMenu: public UIMenu
 {
 public:
-    MainMenu(): 
-        UIMenu("Main Menu") 
+    MainMenu(bool startState=false): 
+        UIMenu("Main Menu", startState) 
     {
         CreateButtons();
     };

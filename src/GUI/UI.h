@@ -17,6 +17,7 @@
 
 #include "UIMenu.h"
 #include "Menus/MainMenu.h"
+#include "Menus/LoadMenu.h"
 
 class UI
 {
@@ -29,6 +30,9 @@ public:
     static void Draw(SDL_Renderer* renderer);
 
     static bool MenuOpen();
+
+    static void SwichToMainMenu();
+    static void SwichToLoadMenu();
 
 private:
     static void CreateGateButtons();
