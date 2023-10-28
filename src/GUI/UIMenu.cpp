@@ -1,7 +1,11 @@
 #include "UIMenu.h"
 
+#include "Debug.h"
+
 UIMenu::UIMenu(const std::string& title, bool startState)
 {
+    m_text = title;
+
     m_width = T_WIDTH/5;
     m_height = T_HEIGHT/3;
 
@@ -29,6 +33,11 @@ UIMenu::UIMenu(const std::string& title, bool startState)
 
 UIMenu::~UIMenu()
 {
+    for (auto& btn : m_buttons)
+        delete btn;
+
+    m_buttons.erase(m_buttons.begin(), m_buttons.end());
+
     SDL_DestroyTexture(m_textTexture);
     SDL_FreeSurface(m_textSurface);
 }

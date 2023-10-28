@@ -12,6 +12,7 @@ void UI::Initialize()
     CreateGateButtons();
 
     m_menu = new MainMenu();
+    m_menu->SetSpecialBtnFunc(UI::SwichToLoadMenu);
 }
 
 void UI::Deconstruct()
@@ -60,13 +61,15 @@ bool UI::MenuOpen()
 void UI::SwichToLoadMenu()
 {
     delete m_menu;
-    m_menu = new LoadMenu();
+    m_menu = new LoadMenu(true);
+    m_menu->SetSpecialBtnFunc(UI::SwichToMainMenu);
 }
 
 void UI::SwichToMainMenu()
 {
     delete m_menu;
-    m_menu = new MainMenu();
+    m_menu = new MainMenu(true);
+    m_menu->SetSpecialBtnFunc(UI::SwichToLoadMenu);
 }
 
 void UI::Event(SDL_Event event)

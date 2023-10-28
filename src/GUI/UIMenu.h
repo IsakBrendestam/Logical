@@ -25,6 +25,8 @@ public:
 
     void Draw(SDL_Renderer* renderer);
     void Update();
+    
+    inline virtual void SetSpecialBtnFunc(void (*func)()) {};
 
 protected:
     virtual void CreateButtons();

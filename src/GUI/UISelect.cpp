@@ -1,8 +1,8 @@
-#include "UIButton.h"
+#include "UISelect.h"
 
 #include <iostream>
 
-UIButton::UIButton(int x, int y, int w, int h, const std::string& text)
+UISelect::UISelect(int x, int y, int w, int h, const std::string& text)
 {
     m_enabled = true;
 
@@ -29,25 +29,27 @@ UIButton::UIButton(int x, int y, int w, int h, const std::string& text)
                    m_rect.h };
 
     m_func = nullptr;
+
+    m_selected = false;
 }
 
-UIButton::~UIButton()
+UISelect::~UISelect()
 {
     SDL_DestroyTexture(m_textTexture);
     SDL_FreeSurface(m_textSurface);
 }
 
-void UIButton::Enable()
+void UISelect::Enable()
 {
     m_enabled = true;
 }
 
-void UIButton::Disable()
+void UISelect::Disable()
 {
     m_enabled = false;
 }
 
-void UIButton::Update()
+void UISelect::Update()
 {
     if (!m_enabled)
         return;
@@ -61,7 +63,8 @@ void UIButton::Update()
 
     if (m_hover && MS::lBtnDown && !m_click)
     {
-        Click();
+        // Click
+        m_selected = !m_selected;
         m_click = true;
     }
 
@@ -69,9 +72,9 @@ void UIButton::Update()
         m_click = false; 
 }
 
-void UIButton::Draw(SDL_Renderer* renderer)
+void UISelect::Draw(SDL_Renderer* renderer)
 {
-    if (m_click)
+    if (m_selected)
         SDL_SetRenderDrawColor(renderer, m_clickColor.r, m_clickColor.g, m_clickColor.b, m_clickColor.a);
     else if (m_hover)
         SDL_SetRenderDrawColor(renderer, m_hoverColor.r, m_hoverColor.g, m_hoverColor.b, m_hoverColor.a);
@@ -80,7 +83,6 @@ void UIButton::Draw(SDL_Renderer* renderer)
     SDL_RenderFillRect(renderer, &m_rect);
 
     // Draw Text
-
     m_textTexture = SDL_CreateTextureFromSurface(renderer, m_textSurface);
     SDL_QueryTexture(m_textTexture, NULL, NULL, &m_textRect.w,&m_textRect.h);
     SDL_RenderCopy(renderer, m_textTexture, NULL, &m_textRect);
