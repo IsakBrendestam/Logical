@@ -172,10 +172,10 @@ bool Gate::Hover(int x, int y)
     bool conenctionHover = false;
 
     for (auto& pin: m_inputs)
-        conenctionHover = MyMath::Max(pin->Hover(x, y), conenctionHover);
+        conenctionHover = pin->Hover(x, y) || conenctionHover;
 
     for (auto& pin: m_outputs)
-        conenctionHover = MyMath::Max(pin->Hover(x, y), conenctionHover);
+        conenctionHover = pin->Hover(x, y) || conenctionHover;
 
     // Only hover gate if not hovering a pin
     if (x > m_xPos && x < m_xPos + m_width &&

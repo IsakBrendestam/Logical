@@ -10,7 +10,7 @@ bool FileManager::FileExists(const std::string&  fileName)
 
 std::string FileManager::LoadFontFile(const std::string&  fileName)
 {
-    std::string filePath = "content/fonts/" + fileName;
+    std::string filePath = "res/fonts/" + fileName;
     if (!FileExists(filePath))
         return nullptr;
 
@@ -31,14 +31,14 @@ std::string FileManager::LoadFontFile(const std::string&  fileName)
 
 void FileManager::SaveJson(json data, const std::string&  fileName)
 {
-    std::ofstream fileStream(fileName);
+    std::ofstream fileStream("res/saveFiles/" + fileName);
 
     fileStream << data.dump(4);
 }
 
 json FileManager::LoadJson(const std::string& fileName)
 {
-    std::ifstream fileStream(fileName);
+    std::ifstream fileStream("res/saveFiles/" + fileName);
     json data;
     fileStream >> data;
 

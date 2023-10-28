@@ -1,6 +1,7 @@
 #pragma once
 
 #include "GUI/UIButton.h"
+#include "Gates/GateHandler.h"
 
 class LampButton: public UIButton
 {

@@ -4,6 +4,10 @@
 
 UIButton::UIButton(int x, int y, int w, int h, const std::string& text)
 {
+    m_enabled = true;
+
+    m_text = text;
+
     m_xPos = x;
     m_yPos = y;
 
@@ -21,7 +25,7 @@ UIButton::UIButton(int x, int y, int w, int h, const std::string& text)
     m_hoverColor = {150, 150, 150, 0};
     m_clickColor = {40, 40, 40, 0};
 
-    TTF_Font* Sans = TTF_OpenFont("content/fonts/font.ttf", 24);
+    TTF_Font* Sans = TTF_OpenFont("res/fonts/font.ttf", 24);
 
     m_textSurface = TTF_RenderText_Solid(Sans, text.c_str(), {0, 0, 0}); 
 }
@@ -32,10 +36,23 @@ UIButton::~UIButton()
     SDL_FreeSurface(m_textSurface);
 }
 
+void UIButton::Enable()
+{
+    m_enabled = true;
+}
+
+void UIButton::Disable()
+{
+    m_enabled = false;
+}
+
 void UIButton::Update()
 {
+    if (!m_enabled)
+        return;
+        
     if (MS::x > m_xPos && MS::x < m_xPos+m_rect.w &&
-        MS::y > m_yPos && MS::x < m_yPos+m_rect.h &&
+        MS::y > m_yPos && MS::y < m_yPos+m_rect.h &&
         (!MS::lBtnDown || m_hover))
         m_hover = true;
     else
@@ -46,7 +63,7 @@ void UIButton::Update()
         Click();
         m_click = true;
     }
-        
+
     if (!MS::lBtnDown)
         m_click = false;
 }

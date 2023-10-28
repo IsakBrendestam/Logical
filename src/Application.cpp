@@ -69,8 +69,8 @@ int Application::Run()
 
                 case SDL_KEYDOWN:
                     // Quitting if Esc is pressed
-                    if (m_windowEvent.key.keysym.sym == SDLK_ESCAPE)
-                        m_running = false;
+                    // if (m_windowEvent.key.keysym.sym == SDLK_ESCAPE)
+                    //     m_running = false;
                     break;
 
                 case SDL_MOUSEBUTTONDOWN:
@@ -114,6 +114,8 @@ int Application::Run()
         // fflush(stdout);
 
         time1 = time2;
+
+        m_running = System::IsRunning();
     }
 
     return EXIT_SUCCESS;
@@ -121,6 +123,8 @@ int Application::Run()
 
 void Application::Initialize()
 {
+    m_state = EngineState::RUNNING;
+
     UI::Initialize();
 
     GateHandler::Initialize();
@@ -136,30 +140,55 @@ void Application::Deconstruct()
 void Application::Event(SDL_Event event)
 {
     //InputHandler::Event(event);
-    switch (event.type)
+    switch (m_state)
     {
-        case SDL_KEYDOWN:
-            if (event.key.keysym.sym == SDLK_s && SDL_GetModState() & 1024)
+        case EngineState::MENU:
+            UI::Event(event);
+
+            if (!UI::MenuOpen())
+                m_state = EngineState::RUNNING;
+
+            break;
+    
+        case EngineState::RUNNING:
+            UI::Event(event);
+
+            switch (event.type)
             {
-                Log("Saving");
-                GateHandler::Save();
+                case SDL_KEYDOWN:
+                    if (event.key.keysym.sym == SDLK_s && SDL_GetModState() & 1024)
+                        GateHandler::Save();
+
+                    if (event.key.keysym.sym == SDLK_l && SDL_GetModState() & 1024)
+                        GateHandler::Load();
+
+                    break;
             }
 
-            if (event.key.keysym.sym == SDLK_l && SDL_GetModState() & 1024)
-            {
-                Log("Loading");
-                GateHandler::Load();
-            }
+            if (UI::MenuOpen())
+                m_state = EngineState::MENU;
 
             break;
     }
+
 }
 
 void Application::Update(double deltaTime)
 {
-    GateHandler::Update(deltaTime);
+    switch (m_state)
+    {
+        case EngineState::MENU:
+            UI::Update(deltaTime);
 
-    UI::Update(deltaTime);
+            break;
+
+        case EngineState::RUNNING:
+            GateHandler::Update(deltaTime);
+
+            UI::Update(deltaTime);
+        
+            break;
+    }
 }
 
 void Application::Draw()

@@ -64,6 +64,8 @@ FILES=	$(BUILD)/Main.o \
 		$(BUILD)/OrGate.o \
 		$(BUILD)/Clock.o \
 		$(BUILD)/Display.o \
+		$(BUILD)/UIMenu.o \
+		$(BUILD)/System.o \
 		
 
 all: $(PROGRAM_FILE)

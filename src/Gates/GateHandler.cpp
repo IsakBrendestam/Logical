@@ -33,6 +33,8 @@ void GateHandler::Deconstruct()
 
 void GateHandler::Save()
 {
+    Log("Saving");
+
     json data;
 
     for (int i = 0; i  < m_gates.size(); i++)
@@ -47,6 +49,8 @@ void GateHandler::Save()
 
 void GateHandler::Load()
 {
+    Log("Loading");
+
     json data;
     data = FileManager::LoadJson("test.json");
 
