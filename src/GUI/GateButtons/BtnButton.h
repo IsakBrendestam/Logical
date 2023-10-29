@@ -9,6 +9,6 @@ public:
     BtnButton(int x, int y):
         UIButton(x, y, 100, 50, "Button") 
     {
-        UIButton::SetFunc(GateHandler::AddButton);
+        UIButton::SetStaticFunc(GateHandler::AddButton);
     };
 };

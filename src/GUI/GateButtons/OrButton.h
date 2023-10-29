@@ -9,6 +9,6 @@ public:
     OrButton(int x, int y):
         UIButton(x, y, 100, 50, "Or") 
     {
-        UIButton::SetFunc(GateHandler::AddOrGate);
+        UIButton::SetStaticFunc(GateHandler::AddOrGate);
     };
 };

@@ -2,10 +2,12 @@
 
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_ttf.h>
+#include <functional>
 
 #include "MouseState.h"
 #include "Debug.h"
 #include "FileManager.h"
+
 
 class UIButton
 {
@@ -18,12 +20,13 @@ public:
     void Enable();
     void Disable();
 
-    inline void SetFunc(void (*func)())
+    inline void SetStaticFunc(void (*func)())
     {
         m_func = func;
-    }
+    };
 
-    inline void Click() {
+    inline virtual void Click() 
+    {
         if (m_func != nullptr)
             m_func();
     };

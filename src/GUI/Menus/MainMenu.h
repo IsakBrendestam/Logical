@@ -28,9 +28,9 @@ public:
         int x = m_xPos + m_width/2 - width/2;
         int y = m_yPos + btnOffset + height;
 
-        UIMenu::AddButton(new SaveButton(x, y, width, height));
-
         UIMenu::AddButton(new QuitButton(x, bottom, width, height));
+
+        UIMenu::AddButton(new SaveButton(x, y, width, height));
 
         // Have to be last
         y += btnOffset + height;
@@ -40,7 +40,7 @@ public:
 
     inline void SetSpecialBtnFunc(void (*func)()) override
     {
-        m_loadBtn->SetFunc(func);
+        m_loadBtn->SetStaticFunc(func);
     }
 
 private:

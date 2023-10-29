@@ -9,6 +9,6 @@ public:
     LampButton(int x, int y):
         UIButton(x, y, 100, 50, "Lamp") 
     {
-        UIButton::SetFunc(GateHandler::AddLamp);
+        UIButton::SetStaticFunc(GateHandler::AddLamp);
     };
 };

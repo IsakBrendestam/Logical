@@ -37,7 +37,7 @@ else
 		SDL_DIR=dep/SDL2/MAC
 		SDL_gfx_DIR=dep/SDL2_gfx/MAC
 		SDL_ttf_DIR=dep/SDL_ttf/MAC
-		DEP=-lSDL2-2.0.0 -lSDL2_gfx  -lSDL2_ttf
+		DEP=-lSDL2-2.0.0 -lSDL2_gfx -lSDL2_ttf
 		PROGRAM_FILE=build/program
     endif
 endif
@@ -66,6 +66,8 @@ FILES=	$(BUILD)/Main.o \
 		$(BUILD)/Display.o \
 		$(BUILD)/UIMenu.o \
 		$(BUILD)/System.o \
+		$(BUILD)/UISelect.o \
+		$(BUILD)/UISelectVector.o \
 		
 
 all: $(PROGRAM_FILE)

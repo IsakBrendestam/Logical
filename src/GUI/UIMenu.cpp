@@ -38,6 +38,11 @@ UIMenu::~UIMenu()
 
     m_buttons.erase(m_buttons.begin(), m_buttons.end());
 
+    for (auto& sel : m_selects)
+        delete sel;
+
+    m_selects.erase(m_selects.begin(), m_selects.end());
+
     SDL_DestroyTexture(m_textTexture);
     SDL_FreeSurface(m_textSurface);
 }
@@ -47,6 +52,9 @@ void UIMenu::Open()
     for (auto& btn : m_buttons)
         btn->Enable();
 
+    for (auto& sel : m_selects)
+        sel->Enable();
+
     m_open = true;
 }
 
@@ -54,6 +62,9 @@ void UIMenu::Close()
 {
     for (auto& btn : m_buttons)
         btn->Disable();
+
+    for (auto& sel : m_selects)
+        sel->Disable();
 
     m_open = false;
 }
@@ -72,13 +83,23 @@ void UIMenu::AddButton(UIButton* btn)
     m_buttons.push_back(btn);
 }
 
+void UIMenu::AddSelectVector(UISelectVector* sel)
+{
+    m_selects.push_back(sel);
+}
+
 void UIMenu::Update()
 {
     if (!m_open)
         return;
 
+    // Update Buttons
     for (auto& btn : m_buttons)
         btn->Update();
+
+    // Update Selects
+    for (auto& sel : m_selects)
+        sel->Update();
 }
 
 void UIMenu::Draw(SDL_Renderer* renderer)
@@ -92,6 +113,10 @@ void UIMenu::Draw(SDL_Renderer* renderer)
     // Draw Buttons
     for (auto& btn : m_buttons)
         btn->Draw(renderer);
+
+    // Draw Selects
+    for (auto& sel : m_selects)
+        sel->Draw(renderer);
 
     // Draw Text
     m_textTexture = SDL_CreateTextureFromSurface(renderer, m_textSurface);

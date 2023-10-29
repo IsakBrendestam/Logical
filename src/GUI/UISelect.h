@@ -18,6 +18,11 @@ public:
     void Enable();
     void Disable();
 
+    void SetSelected(bool state);
+    bool GetSelected();
+
+    std::string GetValue();
+
 protected:
     SDL_Color m_color, m_hoverColor, m_clickColor;
     SDL_Rect m_rect;

@@ -11,6 +11,7 @@
 #include "Gates/GateHandler.h"
 
 #include "UIButton.h"
+#include "UISelectVector.h"
 
 class UIMenu
 {
@@ -31,6 +32,7 @@ public:
 protected:
     virtual void CreateButtons();
     void AddButton(UIButton* btn);
+    void AddSelectVector(UISelectVector* sel);
 
 protected:
     bool m_open;
@@ -44,4 +46,5 @@ protected:
     SDL_Texture* m_textTexture;
 
     std::vector<UIButton*> m_buttons;
+    std::vector<UISelectVector*> m_selects;
 };

@@ -9,6 +9,6 @@ public:
     ClockButton(int x, int y):
         UIButton(x, y, 100, 50, "Clock")
     {
-        UIButton::SetFunc(GateHandler::AddClock);
+        UIButton::SetStaticFunc(GateHandler::AddClock);
     };
 };

@@ -9,6 +9,6 @@ public:
     AndButton(int x, int y):
         UIButton(x, y, 100, 50, "And") 
     {
-        UIButton::SetFunc(GateHandler::AddAndGate);
+        UIButton::SetStaticFunc(GateHandler::AddAndGate);
     };
 };

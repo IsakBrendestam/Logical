@@ -49,6 +49,21 @@ void UISelect::Disable()
     m_enabled = false;
 }
 
+void UISelect::SetSelected(bool state)
+{
+    m_selected = state;
+}
+
+bool UISelect::GetSelected()
+{
+    return m_selected;
+}
+
+std::string UISelect::GetValue()
+{
+    return m_text;
+}
+
 void UISelect::Update()
 {
     if (!m_enabled)
